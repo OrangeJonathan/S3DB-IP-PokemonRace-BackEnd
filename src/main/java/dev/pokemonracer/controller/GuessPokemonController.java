@@ -4,14 +4,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.triceracode.pokeapi.PokeAPIService;
 
-import dev.pokemonracer.model.Friend;
 import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.service.PokeAPIservice;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
