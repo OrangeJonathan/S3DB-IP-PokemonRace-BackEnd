@@ -27,7 +27,7 @@ public class GuessPokemonController {
 
     @GetMapping("/pokemon")
     public Pokemon getRandomPokemon() throws JsonMappingException, JsonProcessingException {
-        pokemon = pokeAPIservice.getRandomPokemon();
+        pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId());
         return pokemon;
     }
 
