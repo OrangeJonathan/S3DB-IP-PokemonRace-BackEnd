@@ -22,7 +22,7 @@ jobs:
               with:
                 distribution: 'corretto'
                 java-version: '17'
-    #build/push docker image
+    
     build-and-push-docker:
         needs: build-deploy
         runs-on: ubuntu-latest
