@@ -22,7 +22,10 @@ jobs:
               with:
                 distribution: 'corretto'
                 java-version: '17'
-    #build/push docker image
+
+            - name: Step-4 Build with Maven
+              run: mvn -B package --file pom.xml
+    
     build-and-push-docker:
         needs: build-deploy
         runs-on: ubuntu-latest

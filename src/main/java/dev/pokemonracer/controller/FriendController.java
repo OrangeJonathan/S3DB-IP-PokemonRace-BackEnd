@@ -19,11 +19,11 @@ public class FriendController {
 
     public FriendController() {
         friends = new ArrayList<>();
-        friends.add(new Friend("SpungeBub", "Spongebob Squarepants"));
-        friends.add(new Friend("Petriq", "Patrick Star"));
-        friends.add(new Friend("GreedyKrab", "Eugene Krabs"));
-        friends.add(new Friend("CheekySands", "Sandy Cheeks"));
-        friends.add(new Friend("EvilChum39", "Plankton"));
+        friends.add(new Friend("SatoshiAsh", "Ash Ketchum"));
+        friends.add(new Friend("Kasumi", "Misty"));
+        friends.add(new Friend("TakeshiRock", "Brock Harrison"));
+        friends.add(new Friend("ShigeruBlue", "Gary Oak"));
+        friends.add(new Friend("PeekAtChu", "Pikachu"));
     }
 
     @GetMapping()
