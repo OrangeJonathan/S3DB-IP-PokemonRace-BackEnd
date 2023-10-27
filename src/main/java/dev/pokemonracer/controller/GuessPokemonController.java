@@ -43,6 +43,25 @@ public class GuessPokemonController {
     public void resetPokemon() {
         pokeAPIservice.resetGuessedPokemonList();
     }
-    
+
+    @PostMapping("/pokemon/generation")
+    public void setPokemonGeneration(@RequestBody SelectedOption selectedOption) {
+        
+        
+        System.out.println("Generation: " + selectedOption.getSelectedOption());
+        pokeAPIservice.setPokemonGeneration(selectedOption.getSelectedOption());
+    }
+
+    public static class SelectedOption {
+        private int selectedOption;
+
+        public int getSelectedOption() {
+            return selectedOption;
+        }
+
+        public void setSelectedOption(int selectedOption) {
+            this.selectedOption = selectedOption;
+        }
+    }
 
 }

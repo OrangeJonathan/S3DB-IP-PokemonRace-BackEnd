@@ -23,13 +23,82 @@ public class PokeAPIservice {
  
     private Set<Integer> generatedPokemonIds = new HashSet<>(); 
 
+    private int pokemonGeneration = 0;
+    private int max;
+    private int min;
+    private int range;
+
     @Autowired
     private IPokemonRepository pokemonRepository;
+
+
+    public void setPokemonGeneration(int generation)
+    {
+        pokemonGeneration = generation;
+    }
+    
+    private int getGenerationRange(int generationNumber) {
+        switch (generationNumber) {
+            case 0:
+                min = 1;
+                max = 1010;
+                range = max - min + 1;
+                return range;
+            case 1:
+                min = 1;
+                max = 151;
+                range = max - min + 1;
+                return range;
+            case 2:
+                min = 152;
+                max = 251;
+                range = max - min + 1;
+                return range;
+            case 3:
+                min = 252;
+                max = 386;
+                range = max - min + 1;
+                return range;
+            case 4:
+                min = 387;
+                max = 493;
+                range = max - min + 1;
+                return range;
+            case 5:
+                min = 494;
+                max = 649;
+                range = max - min + 1;
+                return range;
+            case 6:
+                min = 650;
+                max = 721;
+                range = max - min + 1;
+                return range;
+            case 7:
+                min = 722;
+                max = 809;
+                range = max - min + 1;
+                return range;
+            case 8:
+                min = 810;
+                max = 898;
+                range = max - min + 1;
+                return range;
+            case 9: 
+                min = 899;
+                max = 1010;
+                range = max - min + 1;
+                return range;
+            default:
+                return 0;
+        }
+    }
 
     public int generateRandomPokemonId() {
         int id;
         do {
-            id = (int) (Math.random() * 1010) + 1;
+            id = (int) (Math.random() * getGenerationRange(pokemonGeneration)) + min;
+            System.out.println("min:" + min + " max:" + max + " range:" + range + " id:" + id);
         } while (generatedPokemonIds.contains(id)); 
         return id;
     }
