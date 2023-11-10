@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/guess")
 public class GuessPokemonController {
 
-    @Autowired
+    
     private PokeAPIservice pokeAPIservice;
+
+    public GuessPokemonController(PokeAPIservice pokeAPIService) {
+        this.pokeAPIservice = pokeAPIService;
+    }
 
     Pokemon pokemon;
 
@@ -46,7 +50,6 @@ public class GuessPokemonController {
 
     @PostMapping("/pokemon/generation")
     public void setPokemonGeneration(@RequestBody SelectedOption selectedOption) {
-        
         
         System.out.println("Generation: " + selectedOption.getSelectedOption());
         pokeAPIservice.setPokemonGeneration(selectedOption.getSelectedOption());
