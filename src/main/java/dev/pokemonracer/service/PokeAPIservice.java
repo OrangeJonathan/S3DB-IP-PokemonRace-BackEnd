@@ -28,9 +28,12 @@ public class PokeAPIservice {
     private int min;
     private int range;
 
-    @Autowired
+    //@Autowired
     private IPokemonRepository pokemonRepository;
 
+    public PokeAPIservice(IPokemonRepository pokemonRepository) {
+        this.pokemonRepository = pokemonRepository;
+    }
 
     public void setPokemonGeneration(int generation)
     {

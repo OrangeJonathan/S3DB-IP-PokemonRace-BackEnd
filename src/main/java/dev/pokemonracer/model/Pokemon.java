@@ -28,7 +28,6 @@ public class Pokemon {
 
     public String getImageString() {
         return imageString;
-    }
-
+    }    
     
 }
