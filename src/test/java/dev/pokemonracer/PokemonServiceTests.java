@@ -3,7 +3,11 @@ package dev.pokemonracer;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.assertj.core.api.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.pokemonracer.service.PokeAPIservice;
@@ -30,184 +34,31 @@ class PokemonracerApplicationTests {
 		assert(pokeAPIservice.getGeneratedPokemonIds().isEmpty());
 	}
 
-	@Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween1And1010()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 0;
+	@ParameterizedTest
+    @CsvSource({
+            "0, 1, 1010",
+            "1, 1, 151",
+            "2, 151, 251",
+            "3, 252, 386",
+            "4, 387, 493",
+            "5, 494, 649",
+            "6, 650, 721",
+            "7, 722, 809",
+            "8, 809, 898",
+            "9, 899, 1010"
+    })
+    void getRandomPokemonID_generateRandomPokemonId_shouldBeInSpecifiedRange(int generation, int lowerBound, int upperBound) {
+        // arrange
+        var pokeAPIservice = new PokeAPIservice(null);
 
-		// act
+        // act
         pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
+        int id = pokeAPIservice.generateRandomPokemonId();
 
-		// assert
-		assert(id >= 1 && id <= 1010);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween1And151()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 1;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 1 && id <= 151);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween152And251()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 2;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 151 && id <= 251);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween252And386()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 3;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 252 && id <= 386);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-    
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween387And493()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 4;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 387 && id <= 493);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween494And649()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 5;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 494 && id <= 649);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween650And721()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 6;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 650 && id <= 721);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween722And809()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 7;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 722 && id <= 809);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween810And898()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 8;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 809 && id <= 898);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
-
-    @Test
-	void getRandomPokemonID_generateRandomPokemonId_shouldBeBetween899And1010()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		int id;
-        int generation = 9;
-
-		// act
-        pokeAPIservice.setPokemonGeneration(generation);
-		id = pokeAPIservice.generateRandomPokemonId();
-
-		// assert
-		assert(id >= 899 && id <= 1010);
-        assert(pokeAPIservice.getPokemonGeneration() == generation);
-        assert(id > 0);
-	}
+        // assert
+        Assertions.assertThat(id >= lowerBound && id <= upperBound);
+        Assertions.assertThat(pokeAPIservice.getPokemonGeneration() == generation);
+        Assertions.assertThat(id > 0);
+    }
 
 }
