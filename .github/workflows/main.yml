@@ -27,7 +27,7 @@ jobs:
             - name: step 4 SonarQube Scan
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-              run: mvn sonar:sonar -Dsonar.host.url=https://0d4a-145-93-40-139.ngrok-free.app/sessions/new?return_to=%2F -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
+              run: mvn sonar:sonar -Dsonar.host.url=https://cosmic-hookworm-lightly.ngrok-free.app/ -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
 
             - name: Step 5 Build with Maven
               run: mvn -B package --file pom.xml
