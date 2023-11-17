@@ -16,24 +16,22 @@ import dev.pokemonracer.service.PokeAPIservice;
 class PokemonracerApplicationTests {
 
 	@Test
-	void resetPokemon_removePokemonIDFromSet_shouldBeRemovedFromSet()
-	{
-		// arrange
-		var pokeAPIservice = new PokeAPIservice(null);
-		Set<Integer> generatedPokemonIds = new HashSet<>();
-		generatedPokemonIds.add(1);
-		generatedPokemonIds.add(2);
-		generatedPokemonIds.add(3);
+    void resetPokemon_removePokemonIDFromSet_shouldBeRemovedFromSet() {
+        // arrange
+        var pokeAPIservice = new PokeAPIservice(null);
+        Set<Integer> generatedPokemonIds = new HashSet<>();
+        generatedPokemonIds.add(1);
+        generatedPokemonIds.add(2);
+        generatedPokemonIds.add(3);
+        pokeAPIservice.setGeneratedPokemonIds(generatedPokemonIds);
 
-		pokeAPIservice.setGeneratedPokemonIds(generatedPokemonIds);
+        // act
+        pokeAPIservice.resetGuessedPokemonList();
 
-		// act
-		pokeAPIservice.resetGuessedPokemonList();
-		
-		// assert
-		assert(pokeAPIservice.getGeneratedPokemonIds().isEmpty());
-	}
-
+        // assert
+        Assertions.assertThat(pokeAPIservice.getGeneratedPokemonIds()).isEmpty();
+    }
+    
 	@ParameterizedTest
     @CsvSource({
             "0, 1, 1010",
@@ -56,9 +54,9 @@ class PokemonracerApplicationTests {
         int id = pokeAPIservice.generateRandomPokemonId();
 
         // assert
-        Assertions.assertThat(id >= lowerBound && id <= upperBound);
-        Assertions.assertThat(pokeAPIservice.getPokemonGeneration() == generation);
-        Assertions.assertThat(id > 0);
+        Assertions.assertThat(id).isBetween(lowerBound, upperBound);
+        Assertions.assertThat(pokeAPIservice.getPokemonGeneration()).isEqualTo(generation);
+        Assertions.assertThat(id).isGreaterThan(0);
     }
 
 }
