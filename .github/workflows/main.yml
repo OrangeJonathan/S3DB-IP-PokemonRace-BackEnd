@@ -38,29 +38,8 @@ jobs:
             - name: Test
               run: mvn test
 
-
-    sonarqubescan:
-      needs: test
-      name: SonarQube Scan
-      runs-on: ubuntu-latest
-      permissions: read-all
-      steps:
-          - uses: actions/checkout@v2
-          - uses: actions/setup-java@v3
-            with:
-              distribution: 'corretto'  
-              java-version: '17'
-          - name: SonarQube Scan
-            env:
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-            run: |
-              mvn sonar:sonar -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" -Dsonar.token="${{ secrets.SONAR_TOKEN }}" -Dsonar.projectKey=OrangePlayah_s3db-ip-pokemonrace-backend
-            
-            
-
     build-and-push-docker:
-        needs: sonarqubescan
+        needs: test
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2 
