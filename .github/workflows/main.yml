@@ -21,26 +21,12 @@ jobs:
               with:
                 distribution: 'corretto'
                 java-version: '17'
-            - name: Step-3 Cache SonarQube packages
-              uses: actions/cache@v1
-              with:
-                path: ~/.sonar/cache
-                key: ${{ runner.os }}-sonar
-                restore-keys: ${{ runner.os }}-sonar
-            - name: Step-4 Cache Maven packages
-              uses: actions/cache@v1
-              with:
-                path: ~/.m2
-                key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-                restore-keys: ${{ runner.os }}-m2
-            - name: Step-5 Test
+            - name: Step-3 Test
               run: mvn test
 
-            - name: Step-6 Build and Analyze
-              env:
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-              run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG -Dsonar.projectName='S3DB-IP-PokemonRace-BackEnd'
+            - name: Step-4 Build with Maven
+              run: mvn -B package --file pom.xml
+
     build-and-push-docker:
         needs: build
         runs-on: ubuntu-latest
