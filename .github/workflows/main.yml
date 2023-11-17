@@ -40,17 +40,18 @@ jobs:
 
 
     sonarqubescan:
-        needs: test
-        name: SonarQube Scan
-        runs-on: ubuntu-latest
-        permissions: read-all
-        steps:
-            - uses: actions/checkout@v2
-            - name: scan
-              env:
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-              run: mvn sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.projectKey=${{ secrets.SONAR_TOKEN }} 
+      needs: test
+      name: SonarQube Scan
+      runs-on: ubuntu-latest
+      permissions: read-all
+      steps:
+          - uses: actions/checkout@v2
+          - name: SonarQube Scan
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            run: mvn sonar:sonar -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN}
+            
 
     build-and-push-docker:
         needs: sonarqubescan
