@@ -31,7 +31,7 @@ class PokemonracerApplicationTests {
         // assert
         Assertions.assertThat(pokeAPIservice.getGeneratedPokemonIds()).isEmpty();
     }
-    
+
 	@ParameterizedTest
     @CsvSource({
             "0, 1, 1010",
@@ -56,7 +56,7 @@ class PokemonracerApplicationTests {
         // assert
         Assertions.assertThat(id).isBetween(lowerBound, upperBound);
         Assertions.assertThat(pokeAPIservice.getPokemonGeneration()).isEqualTo(generation);
-        Assertions.assertThat(id).isGreaterThan(0);
+        Assertions.assertThat(id).isPositive();
     }
 
 }
