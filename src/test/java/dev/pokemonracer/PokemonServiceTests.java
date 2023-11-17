@@ -44,6 +44,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 1 && id <= 1010);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -60,6 +62,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 1 && id <= 151);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -76,6 +80,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 151 && id <= 251);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -92,6 +98,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 252 && id <= 386);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
     
     @Test
@@ -108,6 +116,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 387 && id <= 493);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -124,6 +134,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 494 && id <= 649);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -140,6 +152,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 650 && id <= 721);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -156,6 +170,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 722 && id <= 809);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -172,6 +188,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 809 && id <= 898);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
     @Test
@@ -188,6 +206,8 @@ class PokemonracerApplicationTests {
 
 		// assert
 		assert(id >= 899 && id <= 1010);
+        assert(pokeAPIservice.getPokemonGeneration() == generation);
+        assert(id > 0);
 	}
 
 }

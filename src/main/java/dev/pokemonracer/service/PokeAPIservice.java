@@ -39,6 +39,10 @@ public class PokeAPIservice {
     {
         pokemonGeneration = generation;
     }
+
+    public int getPokemonGeneration(){
+        return pokemonGeneration;
+    }
     
     private int getGenerationRange(int generationNumber) {
         switch (generationNumber) {
@@ -118,7 +122,6 @@ public class PokeAPIservice {
         generatedPokemonIds.clear();
         System.out.println("reset");
     }
-
 
     public Set<Integer> getGeneratedPokemonIds() {
         return generatedPokemonIds;
