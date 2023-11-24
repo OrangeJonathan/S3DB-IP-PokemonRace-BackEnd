@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,8 +31,9 @@ public class GuessPokemonController {
     Pokemon pokemon;
 
     @GetMapping("/pokemon")
-    public Pokemon getRandomPokemon() throws JsonMappingException, JsonProcessingException {
-        pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId());
+    public Pokemon getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
+        pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
+        System.out.println(generation);
         return pokemon;
     }
 
@@ -46,25 +48,6 @@ public class GuessPokemonController {
     @PostMapping("/pokemon/reset")
     public void resetPokemon() {
         pokeAPIservice.resetGuessedPokemonList();
-    }
-
-    @PostMapping("/pokemon/generation")
-    public void setPokemonGeneration(@RequestBody SelectedOption selectedOption) {
-        
-        System.out.println("Generation: " + selectedOption.getSelectedOption());
-        pokeAPIservice.setPokemonGeneration(selectedOption.getSelectedOption());
-    }
-
-    public static class SelectedOption {
-        private int selectedOption;
-
-        public int getSelectedOption() {
-            return selectedOption;
-        }
-
-        public void setSelectedOption(int selectedOption) {
-            this.selectedOption = selectedOption;
-        }
     }
 
 }

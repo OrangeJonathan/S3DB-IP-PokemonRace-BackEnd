@@ -101,7 +101,9 @@ public class PokeAPIservice {
         }
     }
 
-    public int generateRandomPokemonId() {
+    public int generateRandomPokemonId(int generationNumber) {
+        pokemonGeneration = generationNumber;
+        getGenerationRange(generationNumber);
         int id;
         do {
             id = (int) (Math.random() * getGenerationRange(pokemonGeneration)) + min;
