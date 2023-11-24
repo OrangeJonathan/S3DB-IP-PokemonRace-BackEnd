@@ -23,10 +23,30 @@ jobs:
                 java-version: '17'
             - name: Build with Maven
               run: mvn -B package --file pom.xml
-            - name: step 4 SonarQube Scan
-              env:
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-              run: mvn sonar:sonar -Dsonar.host.url=https://cosmic-hookworm-lightly.ngrok-free.app/ -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
+            
+    SonarQube:
+      name: So
+      runs-on: ubuntu-latest
+      permissions: read-all
+      steps:
+          - name: checkout
+            uses: actions/checkout@v2
+            with:
+              fetch-depth: 0
+          - name: Set up JDK 17
+            uses: actions/setup-java@v3
+            with:
+              distribution: 'corretto'
+              java-version: '17'
+          - name: SonarQube Scan
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            run: mvn sonar:sonar -Dsonar.host.url=https://cosmic-hookworm-lightly.ngrok-free.app/ -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
+    
+    
+    
+    
+    
     test:
         name: Test
         needs: build
