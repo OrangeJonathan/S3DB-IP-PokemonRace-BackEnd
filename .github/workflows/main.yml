@@ -25,7 +25,8 @@ jobs:
               run: mvn -B package --file pom.xml
             
     SonarQube:
-      name: So
+      name: SonarQube
+      needs: build
       runs-on: ubuntu-latest
       permissions: read-all
       steps:
@@ -43,13 +44,9 @@ jobs:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             run: mvn sonar:sonar -Dsonar.host.url=https://cosmic-hookworm-lightly.ngrok-free.app/ -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
     
-    
-    
-    
-    
     test:
         name: Test
-        needs: build
+        needs: SonarQube
         runs-on: ubuntu-latest
         permissions: read-all
         steps:
