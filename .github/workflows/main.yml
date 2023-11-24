@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-    build:
+    Build:
         name: Build
         runs-on: ubuntu-latest
         permissions: read-all
@@ -23,10 +23,25 @@ jobs:
                 java-version: '17'
             - name: Build with Maven
               run: mvn -B package --file pom.xml
-            
+
+    Test:
+      name: Test
+      needs: Build
+      runs-on: ubuntu-latest
+      permissions: read-all
+      steps:
+          - uses: actions/checkout@v2
+          - uses: actions/setup-java@v3
+            with:
+              distribution: 'corretto'
+              java-version: '17'
+          - name: Test
+            run: mvn test
+
+
     SonarQube:
       name: SonarQube
-      needs: build
+      needs: Test
       runs-on: ubuntu-latest
       permissions: read-all
       steps:
@@ -39,27 +54,17 @@ jobs:
             with:
               distribution: 'corretto'
               java-version: '17'
+          - name: Build with Maven
+            run: mvn -B package --file pom.xml
           - name: SonarQube Scan
             env:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             run: mvn sonar:sonar -Dsonar.host.url=https://cosmic-hookworm-lightly.ngrok-free.app/ -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
     
-    test:
-        name: Test
-        needs: SonarQube
-        runs-on: ubuntu-latest
-        permissions: read-all
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-java@v3
-              with:
-                distribution: 'corretto'
-                java-version: '17'
-            - name: Test
-              run: mvn test
+
 
     build-and-push-docker:
-        needs: test
+        needs: SonarQube
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2 
