@@ -50,8 +50,7 @@ class PokemonracerApplicationTests {
         var pokeAPIservice = new PokeAPIservice(null);
 
         // act
-        pokeAPIservice.setPokemonGeneration(generation);
-        int id = pokeAPIservice.generateRandomPokemonId();
+        int id = pokeAPIservice.generateRandomPokemonId(generation);
 
         // assert
         Assertions.assertThat(id).isBetween(lowerBound, upperBound);
