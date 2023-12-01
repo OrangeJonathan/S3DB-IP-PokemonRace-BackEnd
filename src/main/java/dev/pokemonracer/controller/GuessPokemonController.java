@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dev.pokemonracer.DTOs.PokemonDTO;
 import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.service.PokeAPIservice;
 
@@ -28,16 +29,16 @@ public class GuessPokemonController {
         this.pokeAPIservice = pokeAPIService;
     }
 
-    Pokemon pokemon;
+    PokemonDTO pokemon;
 
     @GetMapping("/pokemon")
-    public Pokemon getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
+    public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
         System.out.println(generation);
         return pokemon;
     }
 
-    @GetMapping("/pokemon/{name}")
+    @GetMapping("/iscorrect/{name}")
     public boolean guessPokemon(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
         String pokemonName = pokemon.getName().toLowerCase();
         name = name.toLowerCase().replace(" ", "-"); 

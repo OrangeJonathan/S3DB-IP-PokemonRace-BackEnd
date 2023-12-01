@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
-
+import dev.pokemonracer.DTOs.PokemonDTO;
 import dev.pokemonracer.model.Pokemon;
 
 @Service
@@ -112,17 +112,21 @@ public class PokeAPIservice {
         return id;
     }
 
-    public Pokemon getPokemonWithId(int id) throws JsonMappingException, JsonProcessingException {
+    public PokemonDTO getPokemonWithId(int id) throws JsonMappingException, JsonProcessingException {
         generatedPokemonIds.add(id);
         var pokemon = pokemonRepository.getPokemonWithId(id);
         System.out.println("pokemon: " + pokemon.getName());
-        return pokemon; 
+        return convertToDTO(pokemon); 
     }
 
     public void resetGuessedPokemonList()
     {
         generatedPokemonIds.clear();
         System.out.println("reset");
+    }
+
+    private PokemonDTO convertToDTO(Pokemon pokemon){
+        return new PokemonDTO(pokemon.getId(), pokemon.getName(), pokemon.getImageString());
     }
 
     public Set<Integer> getGeneratedPokemonIds() {
