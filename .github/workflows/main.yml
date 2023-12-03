@@ -59,7 +59,8 @@ jobs:
             env:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-            run: mvn sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.projectKey=OrangeJonathan_S3DB-IP-PokemonRace-BackEnd_AYvcPE-nwIL5ZJDQv0UG
+              SONAR_PROJECT_TOKEN: ${{ secrets.SONAR_PROJECT_TOKEN }}
+            run: mvn sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_TOKEN }}
     
 
 
