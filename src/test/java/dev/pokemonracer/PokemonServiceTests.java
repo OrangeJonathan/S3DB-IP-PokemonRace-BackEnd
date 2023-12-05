@@ -3,7 +3,6 @@ package dev.pokemonracer;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.assertj.core.api.Assert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
