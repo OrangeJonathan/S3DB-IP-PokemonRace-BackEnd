@@ -8,7 +8,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="users")
 public class User {
@@ -20,14 +28,12 @@ public class User {
     private String username;
 
     @Column(name="auth0_Id", nullable=false)
-    private String auth0_Id;
+    private String auth0Id;
 
     private boolean isOnline;
 
-    User() {}
-
     public User(String username, String auth0_Id) {
         this.username = username;
-        this.auth0_Id = auth0_Id;
+        this.auth0Id = auth0_Id;
     }
 }
