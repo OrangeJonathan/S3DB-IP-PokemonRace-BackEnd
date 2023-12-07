@@ -9,22 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.pokemonracer.DTOs.UserDTO;
-import dev.pokemonracer.service.UserService;
+import dev.pokemonracer.mapper.UserMapper;
+import dev.pokemonracer.model.User;
+import dev.pokemonracer.serviceInterfaces.IUserService;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
     
-    private UserService userService;
+    private IUserService userService;
+    private UserMapper mapper;
 
-    public UserController(UserService userService) {
+    public UserController(IUserService userService, UserMapper mapper) {
         this.userService = userService;
+        this.mapper = mapper;
     }
 
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
-        System.out.println(userDTO);
-        userService.createUser(userDTO);
+        User user = mapper.toUser(userDTO);
+        userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
