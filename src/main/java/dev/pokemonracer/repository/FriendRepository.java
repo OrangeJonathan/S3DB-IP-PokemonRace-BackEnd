@@ -13,9 +13,9 @@ import dev.pokemonracer.model.User_Friend;
 @Repository
 public interface FriendRepository extends JpaRepository<User_Friend, Long> {
 
-    List<User_Friend> findByIdUser(User user);
+    List<User_Friend> findByIdUserAndIsAccepted(User user, boolean isAccepted);
 
-    List<User_Friend> findByIdFriend(User friend);
+    List<User_Friend> findByIdFriendAndIsAccepted(User friend, boolean isAccepted);
 
     User_Friend findByIdUserAndIdFriend(User user, User friend);
 }

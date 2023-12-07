@@ -2,7 +2,6 @@ package dev.pokemonracer.service;
 
 import org.springframework.stereotype.Service;
 
-import dev.pokemonracer.DTOs.UserDTO;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.serviceInterfaces.IUserService;
@@ -16,8 +15,7 @@ public class UserService implements IUserService {
         this.userRepository = userRepository;
     }
 
-    public void createUser(UserDTO userDTO) {
-        User user = convertToUserEntity(userDTO);
+    public void createUser(User user) {
         if (getUserByAuth0Id(user.getAuth0Id()) != null) return;
         userRepository.save(user);
     }
@@ -30,8 +28,8 @@ public class UserService implements IUserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    private User convertToUserEntity(UserDTO userDTO) {
-        User user = new User(userDTO.getUsername(), userDTO.getAuth0_id());
-        return user; 
+    public User getUserByEmail(String receiver_email) {
+        return userRepository.findUserByEmail(receiver_email);
     }
+
 }

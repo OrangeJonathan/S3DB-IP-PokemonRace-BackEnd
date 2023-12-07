@@ -30,6 +30,9 @@ public class User {
     @Column(name="auth0_Id", nullable=false)
     private String auth0Id;
 
+    @Column(name="email", nullable=false)
+    private String email;
+
     private boolean isOnline;
 
     public User(String username, String auth0_Id) {

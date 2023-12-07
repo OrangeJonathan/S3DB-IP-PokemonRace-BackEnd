@@ -8,7 +8,6 @@ import dev.pokemonracer.mapper.UserMapper;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.service.FriendService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
@@ -29,8 +28,19 @@ public class FriendController {
     }
 
     @GetMapping("")
-    public List<UserDTO> getMethodName(@RequestParam String auth0Id) {
-        List<User> friendList = friendService.getFriendsByAuth0Id(auth0Id);
+    public List<UserDTO> GetAcceptedFriends(@RequestParam String auth0Id) {
+        List<User> friendList = friendService.GetAcceptedFriendsByAuth0Id(auth0Id);
+        List<UserDTO> friendDTOList = new ArrayList<>();
+        for (User user : friendList) {
+            friendDTOList.add(mapper.toUserDTO(user));
+            System.out.println(user);
+        }
+        return friendDTOList;
+    }
+
+    @GetMapping("/pending")
+    public List<UserDTO> GetPendingFriends(@RequestParam String auth0Id) {
+        List<User> friendList = friendService.GetPendingFriendsByAuth0Id(auth0Id);
         List<UserDTO> friendDTOList = new ArrayList<>();
         for (User user : friendList) {
             friendDTOList.add(mapper.toUserDTO(user));
@@ -38,14 +48,15 @@ public class FriendController {
         return friendDTOList;
     }
     
-    @PostMapping("/request")
-    public void sendFriendRequest(@RequestBody String[] auth0Ids) {
-        friendService.sendFriendRequest(auth0Ids[0], auth0Ids[1]);
+    
+    @PostMapping("")
+    public void SendFriendRequest(@RequestParam("senderAuth0Id") String senderAuth0Id, @RequestParam("receiverEmail") String receiverEmail) {
+        friendService.SendFriendRequest(senderAuth0Id, receiverEmail);
     }
 
-    @PutMapping("/accept")
-    public void acceptFriendRequest(@RequestBody String[] auth0Ids) {
-        friendService.acceptFriendRequest(auth0Ids[0], auth0Ids[1]);
+    @PutMapping("")
+    public void AcceptFriendRequest(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
+        friendService.AcceptFriendRequest(senderAuth0Id, receiverAuth0Id);
     }
 
 }

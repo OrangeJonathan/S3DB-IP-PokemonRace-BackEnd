@@ -1,17 +1,17 @@
 package dev.pokemonracer.DTOs;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
     
     private String username;
     private String auth0_id;
-    
-    public UserDTO(String username, String id) {
-        this.username = username;
-        this.auth0_id = id;
-    }
+    private String email;
 }
