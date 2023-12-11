@@ -1,5 +1,4 @@
 package dev.pokemonracer.DTOs;
-import dev.pokemonracer.model.Pokemon;
 import jakarta.validation.constraints.NotEmpty;
 
 public class PokemonDTO {

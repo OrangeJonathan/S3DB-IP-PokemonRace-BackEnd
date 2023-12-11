@@ -10,25 +10,33 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="ChatMessage")
-public class ChatMessage {
+public class ChatMessage implements Comparable<ChatMessage>{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
-    @Id
+    
     @ManyToOne
-    @JoinColumn(name="id")
-    private User sender_Id;
+    @JoinColumn(name="sender_Id")
+    private User senderId;
 
-    @Id
+    
     @ManyToOne
-    @JoinColumn(name="id")
-    private User recepient_Id;
+    @JoinColumn(name="recepient_id")
+    private User recepientId;
 
     @Column(name="Message", nullable = false)
     private String message;
@@ -37,13 +45,16 @@ public class ChatMessage {
     @Column(name="TimeSent", nullable = false)
     private java.util.Date timeSent;
 
-    ChatMessage() {}
-
-    ChatMessage(User sender_Id, User recepient_Id, String message, java.util.Date timeSent) {
-        this.sender_Id = sender_Id;
-        this.recepient_Id = recepient_Id;
+    public ChatMessage(User sender_Id, User recepient_Id, String message, java.util.Date timeSent) {
+        this.senderId = sender_Id;
+        this.recepientId = recepient_Id;
         this.message = message;
         this.timeSent = timeSent;
+    }
+
+    @Override
+    public int compareTo(ChatMessage cm) {
+        return getTimeSent().compareTo(cm.getTimeSent());
     }
 
 }
