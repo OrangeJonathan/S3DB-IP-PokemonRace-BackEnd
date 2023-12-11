@@ -1,4 +1,4 @@
-package dev.pokemonracer;
+package dev.pokemonracer.UnitTests;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,14 +7,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.pokemonracer.service.PokeAPIservice;
 
-@SpringBootTest
-class PokemonracerApplicationTests {
+class PokemonracerServiceUnitTests {
 
-/*	@Test
+	@Test
     void resetPokemon_removePokemonIDFromSet_shouldBeRemovedFromSet() {
         // arrange
         var pokeAPIservice = new PokeAPIservice(null);
@@ -55,6 +53,11 @@ class PokemonracerApplicationTests {
         Assertions.assertThat(id).isBetween(lowerBound, upperBound);
         Assertions.assertThat(pokeAPIservice.getPokemonGeneration()).isEqualTo(generation);
         Assertions.assertThat(id).isPositive();
-    } */
+    } 
 
+    @Test
+    public void DummyTest()
+    {
+        Assertions.assertThat(1).isEqualTo(1);
+    }
 }

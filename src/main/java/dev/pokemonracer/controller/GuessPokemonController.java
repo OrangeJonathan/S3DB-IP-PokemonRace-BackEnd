@@ -6,16 +6,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dev.pokemonracer.DTOs.PokemonDTO;
-import dev.pokemonracer.model.Pokemon;
-import dev.pokemonracer.service.PokeAPIservice;
+import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -23,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class GuessPokemonController {
 
     
-    private PokeAPIservice pokeAPIservice;
+    private IPokeAPIService pokeAPIservice;
 
-    public GuessPokemonController(PokeAPIservice pokeAPIService) {
+    public GuessPokemonController(IPokeAPIService pokeAPIService) {
         this.pokeAPIservice = pokeAPIService;
     }
 

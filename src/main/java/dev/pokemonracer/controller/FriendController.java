@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.pokemonracer.DTOs.UserDTO;
 import dev.pokemonracer.mapper.UserMapper;
 import dev.pokemonracer.model.User;
-import dev.pokemonracer.service.FriendService;
+import dev.pokemonracer.serviceInterfaces.IFriendService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -19,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("api/friends")
 public class FriendController {
-    private FriendService friendService;
+    
+    private IFriendService friendService;
     private UserMapper mapper;
 
-    public FriendController(FriendService friendService, UserMapper mapper) {
+    public FriendController(IFriendService friendService, UserMapper mapper) {
         this.friendService = friendService;
         this.mapper = mapper;
     }
@@ -33,7 +35,8 @@ public class FriendController {
         List<UserDTO> friendDTOList = new ArrayList<>();
         for (User user : friendList) {
             friendDTOList.add(mapper.toUserDTO(user));
-            System.out.println(user);
+            System.out.println(user.getAuth0Id());
+
         }
         return friendDTOList;
     }

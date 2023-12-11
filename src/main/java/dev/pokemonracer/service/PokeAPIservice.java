@@ -1,25 +1,19 @@
 package dev.pokemonracer.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
+import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
 import dev.pokemonracer.DTOs.PokemonDTO;
 import dev.pokemonracer.model.Pokemon;
 
 @Service
-public class PokeAPIservice {
+public class PokeAPIservice implements IPokeAPIService {
  
     private Set<Integer> generatedPokemonIds = new HashSet<>(); 
 

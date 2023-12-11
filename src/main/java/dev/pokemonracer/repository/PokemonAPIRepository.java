@@ -14,11 +14,11 @@ import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
 import dev.pokemonracer.model.Pokemon;
 
 @Repository
-public class PokemonRepository implements IPokemonRepository {
+public class PokemonAPIRepository implements IPokemonRepository {
     private final String pokeAPI = "https://pokeapi.co/api/v2/pokemon/";
     private final RestTemplate restTemplate;
 
-    public PokemonRepository(RestTemplate restTemplate) {
+    public PokemonAPIRepository(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

@@ -13,4 +13,7 @@ import lombok.ToString;
 @ToString
 public class ChatMessageDTO {
     private String content;
+    private String sender_id;
+    private String recipientId;
+    private java.util.Date timeSent;
 }

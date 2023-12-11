@@ -2,20 +2,21 @@ package dev.pokemonracer.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.model.User_Friend;
 import dev.pokemonracer.repository.FriendRepository;
+import dev.pokemonracer.serviceInterfaces.IFriendService;
+import dev.pokemonracer.serviceInterfaces.IUserService;
 
 @Service
-public class FriendService {
+public class FriendService implements IFriendService {
     private FriendRepository friendRepository;
-    private UserService userService;
+    private IUserService userService;
 
-    public FriendService(FriendRepository friendRepository, UserService userService) {
+    public FriendService(FriendRepository friendRepository, IUserService userService) {
         this.friendRepository = friendRepository;
         this.userService = userService;
     }
@@ -38,6 +39,7 @@ public class FriendService {
 
 
         User_Friend user_friend = new User_Friend(sendUser, receiveUser, false);
+        System.out.println(user_friend.getId().getUser().getEmail() + " " + user_friend.getId().getFriend().getEmail());
         friendRepository.save(user_friend);
     }
 
