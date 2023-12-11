@@ -35,7 +35,6 @@ public class ChatController {
     @SendTo("/topic/private/{recipientId}")
     public ChatMessageDTO greeting(@DestinationVariable String recipientId, ChatMessageDTO message) throws Exception {
         Thread.sleep(100); // simulated delay
-        System.out.println(message);
         chatService.SaveChat(mapper.toChatMessage(message));
         return message;
     }

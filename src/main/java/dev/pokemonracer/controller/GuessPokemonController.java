@@ -6,6 +6,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dev.pokemonracer.DTOs.PokemonDTO;
+import dev.pokemonracer.mapper.PokemonMapper;
+import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,18 +23,19 @@ public class GuessPokemonController {
 
     
     private IPokeAPIService pokeAPIservice;
+    private PokemonMapper mapper;
+    private Pokemon pokemon;
 
     public GuessPokemonController(IPokeAPIService pokeAPIService) {
         this.pokeAPIservice = pokeAPIService;
+        this.mapper = new PokemonMapper(pokeAPIservice);
     }
 
-    PokemonDTO pokemon;
 
     @GetMapping("/pokemon")
     public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
-        System.out.println(generation);
-        return pokemon;
+        return mapper.toPokemonDTO(pokemon);
     }
 
     @GetMapping("/iscorrect/{name}")

@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import dev.pokemonracer.service.PokeAPIservice;
 
-class PokemonracerServiceUnitTests {
+class PokemonServiceUnitTest {
 
 	@Test
     void resetPokemon_removePokemonIDFromSet_shouldBeRemovedFromSet() {
@@ -31,23 +31,24 @@ class PokemonracerServiceUnitTests {
 
 	@ParameterizedTest
     @CsvSource({
-            "0, 1, 1010",
-            "1, 1, 151",
-            "2, 151, 251",
-            "3, 252, 386",
-            "4, 387, 493",
-            "5, 494, 649",
-            "6, 650, 721",
-            "7, 722, 809",
-            "8, 809, 898",
-            "9, 899, 1010"
+        "-1, 1, 1010",
+        "0, 1, 1010",
+        "1, 1, 151",
+        "2, 151, 251",
+        "3, 252, 386",
+        "4, 387, 493",
+        "5, 494, 649",
+        "6, 650, 721",
+        "7, 722, 809",
+        "8, 809, 898",
+        "9, 899, 1010",
     })
     void getRandomPokemonID_generateRandomPokemonId_shouldBeInSpecifiedRange(int generation, int lowerBound, int upperBound) {
         // arrange
         var pokeAPIservice = new PokeAPIservice(null);
-
+        pokeAPIservice.setPokemonGeneration(generation);
         // act
-        int id = pokeAPIservice.generateRandomPokemonId(generation);
+        int id = pokeAPIservice.generateRandomPokemonId(pokeAPIservice.getPokemonGeneration());
 
         // assert
         Assertions.assertThat(id).isBetween(lowerBound, upperBound);
@@ -55,9 +56,4 @@ class PokemonracerServiceUnitTests {
         Assertions.assertThat(id).isPositive();
     } 
 
-    @Test
-    public void DummyTest()
-    {
-        Assertions.assertThat(1).isEqualTo(1);
-    }
 }
