@@ -21,17 +21,20 @@ public class UserService implements IUserService {
     }
 
     public User getUserByAuth0Id(String auth0Id) {
-        return userRepository.findByAuth0Id(auth0Id);
+        User user = userRepository.findByAuth0Id(auth0Id);
+        if (user == null) return null;
+        return user;
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) return null;
+        return user;
     }
 
     public User getUserByEmail(String receiver_email) {
         User user = userRepository.findUserByEmail(receiver_email);
-        System.out.println(user.getEmail());
-
+        if (user == null) return null;	
         return user;
     }
 

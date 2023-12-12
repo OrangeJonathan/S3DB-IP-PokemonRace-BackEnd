@@ -6,6 +6,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dev.pokemonracer.DTOs.PokemonDTO;
+import dev.pokemonracer.mapper.PokemonMapper;
+import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,20 +23,23 @@ public class GuessPokemonController {
 
     
     private IPokeAPIService pokeAPIservice;
+    private PokemonMapper mapper;
+    private Pokemon pokemon;
 
     public GuessPokemonController(IPokeAPIService pokeAPIService) {
         this.pokeAPIservice = pokeAPIService;
+        this.mapper = new PokemonMapper(pokeAPIservice);
     }
 
-    PokemonDTO pokemon;
 
+    // Get a random pokemon from the PokeAPI.
     @GetMapping("/pokemon")
     public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
-        System.out.println(generation);
-        return pokemon;
+        return mapper.toPokemonDTO(pokemon);
     }
 
+    // Check if the user's guess is correct.
     @GetMapping("/iscorrect/{name}")
     public boolean guessPokemon(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
         String pokemonName = pokemon.getName().toLowerCase();
@@ -43,6 +48,7 @@ public class GuessPokemonController {
         return pokemonName.equals(name); 
     }
 
+    // Reset the list of pokemon that already have been shown.
     @PostMapping("/pokemon/reset")
     public void resetPokemon() {
         pokeAPIservice.resetGuessedPokemonList();

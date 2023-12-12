@@ -1,6 +1,14 @@
 package dev.pokemonracer.DTOs;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PokemonDTO {
 
     @NotEmpty
@@ -11,33 +19,4 @@ public class PokemonDTO {
 
     @NotEmpty
     private String imageString;
-
-    public PokemonDTO(int id, String name, String imageString) {
-        this.id = id;
-        this.name = name;
-        this.imageString = imageString;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImageString() {
-        return imageString;
-    }
-
-    public void setImageString(String imageString) {
-        this.imageString = imageString;
-    }
 }

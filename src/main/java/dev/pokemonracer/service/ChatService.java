@@ -35,7 +35,6 @@ public class ChatService implements IChatService{
 
     private List<ChatMessage> SortListByTimeSent(List<ChatMessage> list) {
         Collections.sort(list);
-        
         return list;
     }
 

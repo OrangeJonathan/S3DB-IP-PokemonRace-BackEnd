@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,27 +31,17 @@ public class FriendController {
     }
 
     @GetMapping("")
-    public List<UserDTO> GetAcceptedFriends(@RequestParam String auth0Id) {
-        List<User> friendList = friendService.GetAcceptedFriendsByAuth0Id(auth0Id);
-        List<UserDTO> friendDTOList = new ArrayList<>();
-        for (User user : friendList) {
-            friendDTOList.add(mapper.toUserDTO(user));
-            System.out.println(user.getAuth0Id());
+    public List<UserDTO> GetFriends(@RequestParam String auth0Id, @RequestParam Boolean accepted) {
+        List<User> friendList;
+        if (accepted) friendList = friendService.GetAcceptedFriendsByAuth0Id(auth0Id);
+        else friendList = friendService.GetPendingFriendsByAuth0Id(auth0Id);
 
-        }
-        return friendDTOList;
-    }
-
-    @GetMapping("/pending")
-    public List<UserDTO> GetPendingFriends(@RequestParam String auth0Id) {
-        List<User> friendList = friendService.GetPendingFriendsByAuth0Id(auth0Id);
         List<UserDTO> friendDTOList = new ArrayList<>();
         for (User user : friendList) {
             friendDTOList.add(mapper.toUserDTO(user));
         }
         return friendDTOList;
     }
-    
     
     @PostMapping("")
     public void SendFriendRequest(@RequestParam("senderAuth0Id") String senderAuth0Id, @RequestParam("receiverEmail") String receiverEmail) {
@@ -60,6 +51,11 @@ public class FriendController {
     @PutMapping("")
     public void AcceptFriendRequest(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
         friendService.AcceptFriendRequest(senderAuth0Id, receiverAuth0Id);
+    }
+
+    @DeleteMapping("")
+    public void RemoveFriend(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
+        friendService.DeleteFriend(senderAuth0Id, receiverAuth0Id);
     }
 
 }

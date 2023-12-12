@@ -9,4 +9,5 @@ public interface IFriendService {
     public List<User> GetPendingFriendsByAuth0Id(String auth0Id);
     public void SendFriendRequest(String sender_auth0Id, String receiver_email);
     public void AcceptFriendRequest(String sender_auth0Id, String receiver_auth0Id);
+    public void DeleteFriend(String sender_auth0Id, String receiver_auth0Id);
 }

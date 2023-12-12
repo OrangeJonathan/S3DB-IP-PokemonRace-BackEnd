@@ -1,6 +1,7 @@
 package dev.pokemonracer.service;
 
 import java.util.Set;
+import java.security.SecureRandom;
 import java.util.HashSet;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
-import dev.pokemonracer.DTOs.PokemonDTO;
 import dev.pokemonracer.model.Pokemon;
 
 @Service
@@ -91,7 +91,10 @@ public class PokeAPIservice implements IPokeAPIService {
                 range = max - min + 1;
                 return range;
             default:
-                return 0;
+                min = 1;
+                max = 1010;
+                range = max - min + 1;
+                return range;
         }
     }
 
@@ -99,28 +102,22 @@ public class PokeAPIservice implements IPokeAPIService {
         pokemonGeneration = generationNumber;
         getGenerationRange(generationNumber);
         int id;
+        SecureRandom secureRandom = new SecureRandom();
         do {
-            id = (int) (Math.random() * getGenerationRange(pokemonGeneration)) + min;
-            System.out.println("min:" + min + " max:" + max + " range:" + range + " id:" + id);
-        } while (generatedPokemonIds.contains(id)); 
+            id = secureRandom.nextInt(range) + min;
+        } while (generatedPokemonIds.contains(id));
         return id;
     }
 
-    public PokemonDTO getPokemonWithId(int id) throws JsonMappingException, JsonProcessingException {
+    public Pokemon getPokemonWithId(int id) throws JsonMappingException, JsonProcessingException {
         generatedPokemonIds.add(id);
         var pokemon = pokemonRepository.getPokemonWithId(id);
-        System.out.println("pokemon: " + pokemon.getName());
-        return convertToDTO(pokemon); 
+        return pokemon;
     }
 
     public void resetGuessedPokemonList()
     {
         generatedPokemonIds.clear();
-        System.out.println("reset");
-    }
-
-    private PokemonDTO convertToDTO(Pokemon pokemon){
-        return new PokemonDTO(pokemon.getId(), pokemon.getName(), pokemon.getImageString());
     }
 
     public Set<Integer> getGeneratedPokemonIds() {
