@@ -32,12 +32,14 @@ public class GuessPokemonController {
     }
 
 
+    // Get a random pokemon from the PokeAPI.
     @GetMapping("/pokemon")
     public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
         return mapper.toPokemonDTO(pokemon);
     }
 
+    // Check if the user's guess is correct.
     @GetMapping("/iscorrect/{name}")
     public boolean guessPokemon(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
         String pokemonName = pokemon.getName().toLowerCase();
@@ -46,6 +48,7 @@ public class GuessPokemonController {
         return pokemonName.equals(name); 
     }
 
+    // Reset the list of pokemon that already have been shown.
     @PostMapping("/pokemon/reset")
     public void resetPokemon() {
         pokeAPIservice.resetGuessedPokemonList();
