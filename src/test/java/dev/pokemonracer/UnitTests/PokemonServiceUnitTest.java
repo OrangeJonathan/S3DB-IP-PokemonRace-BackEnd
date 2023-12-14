@@ -1,59 +1,100 @@
 package dev.pokemonracer.UnitTests;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import dev.pokemonracer.model.Generation;
+import dev.pokemonracer.model.Pokemon;
+import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
 import dev.pokemonracer.service.PokeAPIservice;
+import dev.pokemonracer.serviceInterfaces.IGenerationService;
 
 class PokemonServiceUnitTest {
 
-	@Test
-    void resetPokemon_removePokemonIDFromSet_shouldBeRemovedFromSet() {
-        // arrange
-        var pokeAPIservice = new PokeAPIservice(null);
-        Set<Integer> generatedPokemonIds = new HashSet<>();
-        generatedPokemonIds.add(1);
-        generatedPokemonIds.add(2);
-        generatedPokemonIds.add(3);
-        pokeAPIservice.setGeneratedPokemonIds(generatedPokemonIds);
+    @Mock
+    private IPokemonRepository pokemonRepository;
 
-        // act
-        pokeAPIservice.resetGuessedPokemonList();
+    @Mock
+    private IGenerationService generationService;
 
-        // assert
-        Assertions.assertThat(pokeAPIservice.getGeneratedPokemonIds()).isEmpty();
+    @InjectMocks
+    private PokeAPIservice pokeAPIservice;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
-	@ParameterizedTest
-    @CsvSource({
-        "-1, 1, 1010",
-        "0, 1, 1010",
-        "1, 1, 151",
-        "2, 151, 251",
-        "3, 252, 386",
-        "4, 387, 493",
-        "5, 494, 649",
-        "6, 650, 721",
-        "7, 722, 809",
-        "8, 809, 898",
-        "9, 899, 1010",
-    })
-    void getRandomPokemonID_generateRandomPokemonId_shouldBeInSpecifiedRange(int generation, int lowerBound, int upperBound) {
-        // arrange
-        var pokeAPIservice = new PokeAPIservice(null);
-        pokeAPIservice.setPokemonGeneration(generation);
-        // act
-        int id = pokeAPIservice.generateRandomPokemonId(pokeAPIservice.getPokemonGeneration());
+    @Test
+    void GenerateRandomPokemonId_PokemonIdShouldBeBetween1And151() {
 
-        // assert
-        Assertions.assertThat(id).isBetween(lowerBound, upperBound);
-        Assertions.assertThat(pokeAPIservice.getPokemonGeneration()).isEqualTo(generation);
-        Assertions.assertThat(id).isPositive();
-    } 
+        // Arrange
+        Generation generation = new Generation();
+        generation.setUpperLimit(151);
+        generation.setLowerLimit(1);
 
+        when(generationService.GetGeneration(1L)).thenReturn(generation);
+
+        // Act
+        int randomPokemonId = pokeAPIservice.generateRandomPokemonId(1);
+
+        // Assert
+        assertTrue(randomPokemonId >= 1 && randomPokemonId <= 151);
+    }
+
+    @Test
+    void GetPokemonWithId_ShouldReturnPokemonWithId() throws JsonMappingException, JsonProcessingException {
+        
+        // Arrange
+        int pokemonId = 5;
+        Pokemon pokemon = new Pokemon();
+        when(pokemonRepository.getPokemonWithId(pokemonId)).thenReturn(pokemon);
+
+        // Act
+        Pokemon retrievedPokemon = pokeAPIservice.getPokemonWithId(pokemonId);
+
+        // Assert
+        assertEquals(pokemon, retrievedPokemon);
+        assertTrue(pokeAPIservice.getGeneratedPokemonIds().contains(pokemonId));
+    }
+
+    @Test
+    void ResetGuessedPokemonList_ListShouldBeEmpty() {
+        
+        // Arrange
+        pokeAPIservice.getGeneratedPokemonIds().add(1);
+
+        // Act
+        pokeAPIservice.resetGuessedPokemonList();
+
+        // Assert
+        assertTrue(pokeAPIservice.getGeneratedPokemonIds().isEmpty());
+    }
+
+    @Test
+    void ResetGeneration_MaxMinRangeShouldBeZero() {
+
+        // Arrange
+        pokeAPIservice.setMax(151);
+        pokeAPIservice.setMin(1);
+        pokeAPIservice.setRange(150);
+
+        // Act
+        pokeAPIservice.resetGeneration();
+
+        // Assert
+        assertEquals(0, pokeAPIservice.getMax());
+        assertEquals(0, pokeAPIservice.getMin());
+        assertEquals(0, pokeAPIservice.getRange());
+    }
 }

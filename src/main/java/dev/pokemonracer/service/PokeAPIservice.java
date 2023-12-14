@@ -9,7 +9,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
+import dev.pokemonracer.serviceInterfaces.IGenerationService;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
+import dev.pokemonracer.model.Generation;
 import dev.pokemonracer.model.Pokemon;
 
 @Service
@@ -17,91 +19,52 @@ public class PokeAPIservice implements IPokeAPIService {
  
     private Set<Integer> generatedPokemonIds = new HashSet<>(); 
 
-    private int pokemonGeneration = 0;
     private int max;
     private int min;
     private int range;
 
-    //@Autowired
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
     private IPokemonRepository pokemonRepository;
+    private IGenerationService generationService;
 
-    public PokeAPIservice(IPokemonRepository pokemonRepository) {
+    public PokeAPIservice(IPokemonRepository pokemonRepository, IGenerationService generationService) {
         this.pokemonRepository = pokemonRepository;
+        this.generationService = generationService;
     }
 
-    public void setPokemonGeneration(int generation)
-    {
-        pokemonGeneration = generation;
-    }
-
-    public int getPokemonGeneration(){
-        return pokemonGeneration;
-    }
-    
-    private int getGenerationRange(int generationNumber) {
-        switch (generationNumber) {
-            case 0:
-                min = 1;
-                max = 1010;
-                range = max - min + 1;
-                return range;
-            case 1:
-                min = 1;
-                max = 151;
-                range = max - min + 1;
-                return range;
-            case 2:
-                min = 152;
-                max = 251;
-                range = max - min + 1;
-                return range;
-            case 3:
-                min = 252;
-                max = 386;
-                range = max - min + 1;
-                return range;
-            case 4:
-                min = 387;
-                max = 493;
-                range = max - min + 1;
-                return range;
-            case 5:
-                min = 494;
-                max = 649;
-                range = max - min + 1;
-                return range;
-            case 6:
-                min = 650;
-                max = 721;
-                range = max - min + 1;
-                return range;
-            case 7:
-                min = 722;
-                max = 809;
-                range = max - min + 1;
-                return range;
-            case 8:
-                min = 810;
-                max = 898;
-                range = max - min + 1;
-                return range;
-            case 9: 
-                min = 899;
-                max = 1010;
-                range = max - min + 1;
-                return range;
-            default:
-                min = 1;
-                max = 1010;
-                range = max - min + 1;
-                return range;
-        }
+    private void SetGeneration(int Id) {
+        Generation generation = generationService.GetGeneration(Long.valueOf(Id));
+        max = generation.getUpperLimit();
+        min = generation.getLowerLimit();
+        range = max - min;
     }
 
     public int generateRandomPokemonId(int generationNumber) {
-        pokemonGeneration = generationNumber;
-        getGenerationRange(generationNumber);
         int id;
+        SetGeneration(generationNumber);
         SecureRandom secureRandom = new SecureRandom();
         do {
             id = secureRandom.nextInt(range) + min;
@@ -118,6 +81,12 @@ public class PokeAPIservice implements IPokeAPIService {
     public void resetGuessedPokemonList()
     {
         generatedPokemonIds.clear();
+    }
+
+    public void resetGeneration() {
+        max = 0;
+        min = 0;
+        range = 0;
     }
 
     public Set<Integer> getGeneratedPokemonIds() {

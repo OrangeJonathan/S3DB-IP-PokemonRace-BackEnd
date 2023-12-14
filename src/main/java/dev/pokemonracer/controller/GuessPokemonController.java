@@ -48,10 +48,11 @@ public class GuessPokemonController {
         return pokemonName.equals(name); 
     }
 
-    // Reset the list of pokemon that already have been shown.
+    // Reset the PokeAPIService to be ready for a new game.
     @PostMapping("/pokemon/reset")
     public void resetPokemon() {
         pokeAPIservice.resetGuessedPokemonList();
+        pokeAPIservice.resetGeneration();
     }
 
 }
