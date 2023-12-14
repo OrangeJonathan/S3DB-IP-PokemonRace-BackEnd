@@ -23,11 +23,13 @@ public class FriendService implements IFriendService {
 
     public List<User> GetAcceptedFriendsByAuth0Id(String auth0Id) {
         Boolean accepted = true;
+        System.out.println("Getting Accepted Friends");
         return GetFriendsByAuth0Id(auth0Id, accepted);
     }
     
     public List<User> GetPendingFriendsByAuth0Id(String auth0Id) {
         Boolean accepted = false;
+        System.out.println("Getting Pending Friends");
         return GetFriendsByAuth0Id(auth0Id, accepted);
     }
 

@@ -36,6 +36,7 @@ public class FriendController {
         if (accepted) friendList = friendService.GetAcceptedFriendsByAuth0Id(auth0Id);
         else friendList = friendService.GetPendingFriendsByAuth0Id(auth0Id);
 
+        System.out.println(friendList.get(0).getUsername());
         List<UserDTO> friendDTOList = new ArrayList<>();
         for (User user : friendList) {
             friendDTOList.add(mapper.toUserDTO(user));
