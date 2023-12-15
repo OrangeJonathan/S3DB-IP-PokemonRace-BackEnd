@@ -56,7 +56,7 @@ jobs:
         - name: Set up MySQL
           run: |
             sudo service mysql start
-            mysql -u root -pRooTPassworD1! --port 3306 -h localhost
+            mysql -u root -p'RooTPassworD1!' --port 3306 -h localhost
         - name: Test
           run: mvn verify
 
