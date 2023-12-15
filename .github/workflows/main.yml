@@ -56,7 +56,7 @@ jobs:
         - name: Set up MySQL
           run: |
             sudo /etc/init.d/mysql start
-            mysql -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }} --port 3306 -h localhost -e "CREATE DATABASE IF NOT EXISTS ${{ env.DB_DATABASE }};"
+            mysql -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }} --port 3306 -h 127.0.0.1 -e "CREATE DATABASE IF NOT EXISTS ${{ env.DB_DATABASE }};"
         - name: Test
           run: mvn verify
 
