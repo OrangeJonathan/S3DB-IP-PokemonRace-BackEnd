@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
 import dev.pokemonracer.serviceInterfaces.IGenerationService;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
+import dev.pokemonracer.exceptions.PokemonApiException;
 import dev.pokemonracer.model.Generation;
 import dev.pokemonracer.model.Pokemon;
 
@@ -72,10 +73,15 @@ public class PokeAPIservice implements IPokeAPIService {
         return id;
     }
 
-    public Pokemon getPokemonWithId(int id) throws JsonMappingException, JsonProcessingException {
-        generatedPokemonIds.add(id);
-        var pokemon = pokemonRepository.getPokemonWithId(id);
-        return pokemon;
+    public Pokemon getPokemonWithId(int id) {
+        try {
+            generatedPokemonIds.add(id);
+            var pokemon = pokemonRepository.getPokemonWithId(id);
+            return pokemon;
+        } catch (PokemonApiException ex) {
+            throw ex;
+        }
+        
     }
 
     public void resetGuessedPokemonList()

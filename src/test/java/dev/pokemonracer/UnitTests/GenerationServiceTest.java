@@ -39,7 +39,7 @@ public class GenerationServiceTest {
         int upperLimit = 151;
         int lowerLimit = 1;
 
-        when(generationRepository.findById(id)).thenReturn(null);
+        when(generationRepository.findById(id)).thenReturn(Optional.empty());
 
         
         // Act
@@ -89,7 +89,7 @@ public class GenerationServiceTest {
         // Arrange
         Long id = 1L;
 
-        when(generationRepository.findById(id)).thenReturn(null);
+        when(generationRepository.findById(id)).thenReturn(Optional.empty());
 
         // Act
         Generation result = generationService.GetGeneration(id);
@@ -143,7 +143,7 @@ public class GenerationServiceTest {
         int upperLimit = 153;
         int lowerLimit = 4;
 
-        when(generationRepository.findById(id)).thenReturn(null);
+        when(generationRepository.findById(id)).thenReturn(Optional.empty());
 
         // Act
         generationService.UpdateGeneration(id, upperLimit, lowerLimit);

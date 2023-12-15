@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/guess")
 public class GuessPokemonController {
 
-    
     private IPokeAPIService pokeAPIservice;
     private PokemonMapper mapper;
     private Pokemon pokemon;
@@ -31,12 +30,12 @@ public class GuessPokemonController {
         this.mapper = new PokemonMapper(pokeAPIservice);
     }
 
-
     // Get a random pokemon from the PokeAPI.
     @GetMapping("/pokemon")
-    public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) throws JsonMappingException, JsonProcessingException {
+    public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
         return mapper.toPokemonDTO(pokemon);
+        
     }
 
     // Check if the user's guess is correct.
