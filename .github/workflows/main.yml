@@ -55,7 +55,7 @@ jobs:
             java-version: '17'
         - name: Set up MySQL
           run: |
-            sudo /etc/init.d/mysql start
+            sudo service mysql start
             mysql -u root -p RooTPassworD1! --port 3306 -h 127.0.0.1
         - name: Test
           run: mvn verify
