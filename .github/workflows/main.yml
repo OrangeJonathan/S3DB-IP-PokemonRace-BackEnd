@@ -43,28 +43,27 @@ jobs:
       needs: UnitTesting
       runs-on: ubuntu-latest
       permissions: read-all 
-      services:
-        mysql:
-          image: mysql:latest
-          env:
-            MYSQL_DATABASE: ${{ secrets.TEST_DB_DATABASE }}
-            MYSQL_USER: ${{ secrets.TEST_DB_USERNAME }}
-            MYSQL_ROOT_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-          ports:
-            - 3306:3306
+      env:
+        DB_DATABASE: pokemonracerTest
+        DB_USER: root
+        DB_PASSWORD: my-secret-pw        
       steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-java@v3
           with:
             distribution: 'corretto'
             java-version: '17'
+        - name: Set up MySQL
+          run: |
+            sudo /etc/init.d/mysql start
+            mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
         - name: Test
           run: mvn verify
 
 
     SonarQube:
       name: SonarQube
-      needs: UnitTesting
+      needs: IntegrationTesting
       runs-on: ubuntu-latest
       permissions: read-all
       steps:
