@@ -62,9 +62,6 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
        
-      - name: Test
-        run: mvn verify
-
       - name: Debug
         run: |
           echo "Checking connectivity to MySQL..."
@@ -74,6 +71,10 @@ jobs:
           cat /etc/hosts
           cat /etc/resolv.conf
         continue-on-error: true
+      
+      - name: Test
+        run: mvn verify
+
 
     SonarQube:
       name: SonarQube
