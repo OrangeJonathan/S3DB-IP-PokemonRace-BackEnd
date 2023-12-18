@@ -44,7 +44,7 @@ jobs:
       runs-on: ubuntu-latest
       permissions: read-all 
       env:
-        DB_DATABASE: test_db
+        DB_DATABASE: pokemonracerTest
         DB_USER: root
         DB_PASSWORD: root
       steps:
@@ -62,6 +62,8 @@ jobs:
             sudo /etc/init.d/mysql start
             sleep 10  # Add a sleep to wait for MySQL to fully start
             mysql -e "CREATE DATABASE IF NOT EXISTS ${{ env.DB_DATABASE }};" -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}          
+            mysql -e "GRANT ALL PRIVILEGES ON ${{ env.DB_DATABASE }}.* TO '${{ env.DB_USER }}'@'localhost' IDENTIFIED BY '${{ env.DB_PASSWORD }}';" -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        
         - name: Test
           run: mvn verify
 
