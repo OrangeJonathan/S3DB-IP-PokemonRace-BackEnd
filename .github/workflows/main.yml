@@ -48,9 +48,9 @@ jobs:
           image: mysql:latest
           env:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: integration_test_db
-            MYSQL_USER: test_user
-            MYSQL_PASSWORD: test_password
+            MYSQL_DATABASE: pokemonracerTest
+            MYSQL_USER: root
+            MYSQL_PASSWORD: RooTPassworD1!
           ports:
             - 3306:3306
   
