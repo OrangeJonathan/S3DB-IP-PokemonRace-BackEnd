@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -22,6 +23,9 @@ import dev.pokemonracer.service.PokeAPIservice;
 @ExtendWith(SpringExtension.class)
 public class PokeAPIserviceIT {
     private PokeAPIservice pokeAPIservice;
+
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     public PokeAPIserviceIT(PokeAPIservice pokeAPIservice, PokemonAPIRepository pokemonAPIRepository) {
