@@ -65,16 +65,13 @@ jobs:
         - name: Debug
           run: |
             echo "Checking connectivity to MySQL..."
-            echo "MySQL Container IP:"
-            docker inspect -f '{{with index .NetworkSettings.Networks "bridge"}}{{.IPAddress}}{{else}}Not available{{end}}' mysql
-            systemctl status mysql
+            docker inspect mysql
             telnet localhost 3306
             netstat -an
             curl http://localhost:3306
             cat /etc/hosts
             cat /etc/resolv.conf
           continue-on-error: true
-
 
         
         - name: Test
