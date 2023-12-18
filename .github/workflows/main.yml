@@ -50,7 +50,7 @@ jobs:
             MYSQL_USER: root
             MYSQL_PASSWORD: RooTPassworD1!
           ports:
-            - 3306:3306      
+            - 3306:3306  
   
       steps:
       - name: Checkout code
