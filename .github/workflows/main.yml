@@ -44,7 +44,7 @@ jobs:
       runs-on: ubuntu-latest
       permissions: read-all 
       services:
-        localhost:
+        mysql:
           image: mysql:latest
           env:
             MYSQL_USER: root
@@ -65,7 +65,7 @@ jobs:
       - name: Debug
         run: |
           echo "Checking connectivity to MySQL..."
-          telnet mysql 3306
+          telnet localhost 3306
           netstat -an
           curl http://localhost:3306
           cat /etc/hosts
