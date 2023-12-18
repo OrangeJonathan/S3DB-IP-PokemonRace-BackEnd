@@ -3,11 +3,10 @@ package dev.pokemonracer.IntegrationTests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import dev.pokemonracer.exceptions.PokemonNotFoundException;
@@ -20,9 +19,6 @@ import dev.pokemonracer.service.PokeAPIservice;
 @ExtendWith(SpringExtension.class)
 public class PokeAPIserviceIT {
     private PokeAPIservice pokeAPIservice;
-
-    @Autowired
-    private ApplicationContext context;
 
     @Autowired
     public PokeAPIserviceIT(PokeAPIservice pokeAPIservice, PokemonAPIRepository pokemonAPIRepository) {
