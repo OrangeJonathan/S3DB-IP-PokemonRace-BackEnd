@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +37,7 @@ public class FriendServiceIT {
         userRepository.deleteAll();
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void GetAcceptedFriendsByAuth0Id_FindFriends_ReturnAcceptedFriends() {
         
         // Arrange
