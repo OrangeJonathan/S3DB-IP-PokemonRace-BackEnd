@@ -65,6 +65,15 @@ jobs:
       - name: Test
         run: mvn verify
 
+      - name: Debug
+        run: |
+          echo "Checking connectivity to MySQL..."
+          telnet mysql 3306
+          netstat -an
+          curl http://localhost:3306
+          cat /etc/hosts
+          cat /etc/resolv.conf
+        continue-on-error: true
 
     SonarQube:
       name: SonarQube
