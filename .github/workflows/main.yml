@@ -45,14 +45,15 @@ jobs:
       permissions: read-all 
       services:
         mysql:
-          image: mysql:8.0.35
+          image: mysql:latest
           env:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: pokemonracerTest
-            MYSQL_USER: root
-            MYSQL_PASSWORD: RooTPassworD1!
+            MYSQL_DATABASE: integration_test_db
+            MYSQL_USER: test_user
+            MYSQL_PASSWORD: test_password
           ports:
             - 3306:3306
+  
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -62,9 +63,6 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
-      
-      - name: Wait for MySQL to be ready
-        run: sleep 2
        
       - name: Test
         run: mvn verify

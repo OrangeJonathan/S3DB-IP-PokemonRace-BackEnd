@@ -5,10 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.model.User_Friend;
@@ -17,7 +15,6 @@ import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.FriendService;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 public class FriendServiceIT {
     
     private FriendService friendService;
