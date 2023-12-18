@@ -7,8 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.UserRepository;
@@ -19,7 +19,7 @@ public class UserServiceTest {
     private UserService userService;
     private UserRepository userRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // Mock the UserRepository
         userRepository = mock(UserRepository.class);
