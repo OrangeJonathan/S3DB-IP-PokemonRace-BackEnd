@@ -21,9 +21,9 @@ import dev.pokemonracer.service.FriendService;
 @ExtendWith(SpringExtension.class)
 public class FriendServiceIT {
     
-    private final FriendService friendService;
-    private final UserRepository userRepository;
-    private final FriendRepository friendRepository;
+    private FriendService friendService;
+    private UserRepository userRepository;
+    private FriendRepository friendRepository;
 
     @Autowired
     public FriendServiceIT(FriendService friendService, UserRepository userRepository, FriendRepository friendRepository) {
