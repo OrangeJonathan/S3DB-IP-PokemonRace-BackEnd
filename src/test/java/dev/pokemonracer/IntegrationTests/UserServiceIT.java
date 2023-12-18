@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import dev.pokemonracer.model.User;
@@ -21,6 +22,9 @@ public class UserServiceIT {
     private UserService userService;
     private UserRepository userRepository;
     private FriendRepository friendRepository;
+
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     public UserServiceIT(UserService userService, UserRepository userRepository, FriendRepository friendRepository) {

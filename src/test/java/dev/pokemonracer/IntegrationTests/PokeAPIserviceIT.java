@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.client.HttpClientErrorException;
 
-
-import dev.pokemonracer.exceptions.PokemonApiException;
 import dev.pokemonracer.exceptions.PokemonNotFoundException;
 import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.repository.PokemonAPIRepository;
