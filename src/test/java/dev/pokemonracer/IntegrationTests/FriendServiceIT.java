@@ -17,8 +17,6 @@ import dev.pokemonracer.repository.FriendRepository;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.FriendService;
 
-
-
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 public class FriendServiceIT {
@@ -66,5 +64,4 @@ public class FriendServiceIT {
         assertEquals(actualFriends.get(0).getEmail(), friend2.getEmail());
         assertEquals(actualFriends.get(0).getUsername(), friend2.getUsername());
     }
-
 }

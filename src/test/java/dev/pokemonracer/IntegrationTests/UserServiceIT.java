@@ -22,7 +22,6 @@ public class UserServiceIT {
     private UserRepository userRepository;
     private FriendRepository friendRepository;
 
-
     @Autowired
     public UserServiceIT(UserService userService, UserRepository userRepository, FriendRepository friendRepository) {
         this.userService = userService;
