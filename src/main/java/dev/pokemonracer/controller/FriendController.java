@@ -3,7 +3,7 @@ package dev.pokemonracer.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pokemonracer.DTOs.UserDTO;
+import dev.pokemonracer.dto.UserDTO;
 import dev.pokemonracer.mapper.UserMapper;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.serviceInterfaces.IFriendService;
@@ -36,7 +36,6 @@ public class FriendController {
         if (accepted) friendList = friendService.GetAcceptedFriendsByAuth0Id(auth0Id);
         else friendList = friendService.GetPendingFriendsByAuth0Id(auth0Id);
 
-        System.out.println(friendList.get(0).getUsername());
         List<UserDTO> friendDTOList = new ArrayList<>();
         for (User user : friendList) {
             friendDTOList.add(mapper.toUserDTO(user));

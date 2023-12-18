@@ -1,6 +1,6 @@
 package dev.pokemonracer.mapper;
 
-import dev.pokemonracer.DTOs.UserDTO;
+import dev.pokemonracer.dto.UserDTO;
 import dev.pokemonracer.model.User;
 import org.springframework.stereotype.Component;
 

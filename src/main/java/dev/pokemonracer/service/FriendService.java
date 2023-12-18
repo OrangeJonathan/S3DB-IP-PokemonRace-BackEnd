@@ -23,13 +23,11 @@ public class FriendService implements IFriendService {
 
     public List<User> GetAcceptedFriendsByAuth0Id(String auth0Id) {
         Boolean accepted = true;
-        System.out.println("Getting Accepted Friends");
         return GetFriendsByAuth0Id(auth0Id, accepted);
     }
     
     public List<User> GetPendingFriendsByAuth0Id(String auth0Id) {
         Boolean accepted = false;
-        System.out.println("Getting Pending Friends");
         return GetFriendsByAuth0Id(auth0Id, accepted);
     }
 
@@ -39,31 +37,31 @@ public class FriendService implements IFriendService {
 
         if(getUser_friend(sender_auth0Id, receiveUser.getAuth0Id()) != null) return;
 
-        User_Friend user_friend = new User_Friend(sendUser, receiveUser, false);
-        friendRepository.save(user_friend);
+        User_Friend userFriend = new User_Friend(sendUser, receiveUser, false);
+        friendRepository.save(userFriend);
     }
 
     public void AcceptFriendRequest(String sender_auth0Id, String receiver_auth0Id) {
-        User_Friend user_friend = getUser_friend(sender_auth0Id, receiver_auth0Id);
+        User_Friend userFriend = getUser_friend(sender_auth0Id, receiver_auth0Id);
         if(getUser_friend(sender_auth0Id, receiver_auth0Id) == null) return;
 
-        user_friend.setAccepted(true);
-        friendRepository.save(user_friend);
+        userFriend.setAccepted(true);
+        friendRepository.save(userFriend);
     }
 
     public void DeleteFriend(String sender_auth0Id, String receiver_auth0Id) {
-        User_Friend user_friend = getUser_friend(sender_auth0Id, receiver_auth0Id);
+        User_Friend userFriend = getUser_friend(sender_auth0Id, receiver_auth0Id);
         if(getUser_friend(sender_auth0Id, receiver_auth0Id) == null) return;
 
-        friendRepository.delete(user_friend);
+        friendRepository.delete(userFriend);
     }
 
     private User_Friend getUser_friend(String sender_auth0Id, String receiver_auth0Id) {
         User sender = userService.getUserByAuth0Id(sender_auth0Id);
         User receiver = userService.getUserByAuth0Id(receiver_auth0Id);
-        User_Friend user_friend = friendRepository.findByIdUserAndIdFriend(sender, receiver);
-        if (user_friend == null) user_friend = friendRepository.findByIdUserAndIdFriend(receiver, sender);
-        return user_friend;
+        User_Friend userFriend = friendRepository.findByIdUserAndIdFriend(sender, receiver);
+        if (userFriend == null) userFriend = friendRepository.findByIdUserAndIdFriend(receiver, sender);
+        return userFriend;
     }
 
     private List<User> GetFriendsByAuth0Id(String auth0Id, Boolean accepted) {
@@ -78,7 +76,6 @@ public class FriendService implements IFriendService {
             User friendUser = userFriend.getId().getFriend();
             if (friendUser.getId().equals(userId)) friendUser = userFriend.getId().getUser();
             User friend = (friendUser.getId() != userId) ? friendUser : user;
-            System.out.println(friend);
             friendList.add(friend);
         }
     

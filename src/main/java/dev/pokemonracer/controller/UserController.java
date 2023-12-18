@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pokemonracer.DTOs.UserDTO;
+import dev.pokemonracer.dto.UserDTO;
 import dev.pokemonracer.mapper.UserMapper;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.serviceInterfaces.IUserService;

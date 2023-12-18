@@ -1,6 +1,6 @@
 package dev.pokemonracer.mapper;
 
-import dev.pokemonracer.DTOs.GenerationDTO;
+import dev.pokemonracer.dto.GenerationDTO;
 import dev.pokemonracer.model.Generation;
 
 public class GenerationMapper {

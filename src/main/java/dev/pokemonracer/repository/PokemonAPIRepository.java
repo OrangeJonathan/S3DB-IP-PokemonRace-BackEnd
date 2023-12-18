@@ -6,7 +6,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,18 +43,15 @@ public class PokemonAPIRepository implements IPokemonRepository {
             }
         } catch (JsonProcessingException e) {
             // Handle JSON parsing errors
-            e.printStackTrace();
             throw new PokemonApiException("Failed to parse JSON response for Pokemon with ID: " + id, e);
         } catch (HttpClientErrorException ex) {
             // Handle HTTP client errors (4xx and 5xx)
-            ex.printStackTrace();
             if (ex.getStatusCode().value() == 404) {
                 throw new PokemonNotFoundException("Pokemon with ID: " + id + " does not exist", ex);
             }
             throw new PokemonApiException("HTTP error while retrieving Pokemon with ID: " + id, ex);
         } catch (Exception e) {
             // Handle other unexpected errors
-            e.printStackTrace();
             throw new PokemonApiException("Unexpected error while retrieving Pokemon with ID: " + id, e);
         }
     }

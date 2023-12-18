@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import dev.pokemonracer.DTOs.PokemonDTO;
+import dev.pokemonracer.dto.PokemonDTO;
 import dev.pokemonracer.mapper.PokemonMapper;
 import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;

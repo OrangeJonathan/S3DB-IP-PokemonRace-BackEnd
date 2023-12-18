@@ -1,6 +1,6 @@
 package dev.pokemonracer.mapper;
 
-import dev.pokemonracer.DTOs.ChatMessageDTO;
+import dev.pokemonracer.dto.ChatMessageDTO;
 import dev.pokemonracer.model.ChatMessage;
 import dev.pokemonracer.serviceInterfaces.IUserService;
 
