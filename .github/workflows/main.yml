@@ -43,22 +43,32 @@ jobs:
       needs: UnitTesting
       runs-on: ubuntu-latest
       permissions: read-all 
-      env:
-        DB_DATABASE: pokemonracerTest
-        DB_USER: root
-        DB_PASSWORD: RooTPassworD1          
+      services:
+        mysql:
+          image: mysql:latest
+          env:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: integration_test_db
+            MYSQL_USER: test_user
+            MYSQL_PASSWORD: test_password
+          ports:
+            - 3306:3306
+  
       steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-java@v3
-          with:
-            distribution: 'corretto'
-            java-version: '17'
-        - name: Set up MySQL
-          run: |
-            sudo service mysql start
-            mysql -u root -p'RooTPassworD1!' --port 3306 -h localhost
-        - name: Test
-          run: mvn verify
+      - name: Checkout code
+        uses: actions/checkout@v2
+  
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Run Integration Tests
+        run: mvn integration-test
+       
+      - name: Test
+        run: mvn verify
 
 
     SonarQube:
