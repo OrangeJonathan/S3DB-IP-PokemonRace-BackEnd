@@ -60,20 +60,8 @@ jobs:
         - name: Set up MySQL
           run: |
             sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
-          
-        - name: Debug
-          run: |
-            echo "Checking connectivity to MySQL..."
-            docker inspect mysql
-            telnet localhost 3306
-            netstat -an
-            curl http://localhost:3306
-            cat /etc/hosts
-            cat /etc/resolv.conf
-          continue-on-error: true
-
-        
+            sleep 10  # Add a sleep to wait for MySQL to fully start
+            mysql -e "CREATE DATABASE IF NOT EXISTS ${{ env.DB_DATABASE }};" -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}          
         - name: Test
           run: mvn verify
 
