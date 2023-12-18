@@ -45,7 +45,7 @@ jobs:
       permissions: read-all 
       services:
         mysql:
-          image: mysql:latest
+          image: mysql:8.0.35
           env:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: pokemonracerTest
@@ -64,7 +64,7 @@ jobs:
           java-version: '17'
       
       - name: Wait for MySQL to be ready
-        run: sleep 20
+        run: sleep 2
        
       - name: Test
         run: mvn verify
