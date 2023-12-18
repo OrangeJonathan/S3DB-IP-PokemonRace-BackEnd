@@ -65,14 +65,14 @@ jobs:
         - name: Debug
           run: |
             echo "Checking connectivity to MySQL..."
-            echo "MySQL Container IP:"
-            docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql
+            docker inspect mysql
             telnet localhost 3306
             netstat -an
             curl http://localhost:3306
             cat /etc/hosts
             cat /etc/resolv.conf
           continue-on-error: true
+
         
         - name: Test
           run: mvn verify
