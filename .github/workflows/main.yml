@@ -63,9 +63,6 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
-
-      - name: Run Integration Tests
-        run: mvn integration-test
        
       - name: Test
         run: mvn verify
