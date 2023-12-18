@@ -20,13 +20,13 @@ public class GenerationService implements IGenerationService {
 
     public void InsertGeneration(Long Id, int upperLimit, int lowerLimit) {
         Generation generation = new Generation(Id, upperLimit, lowerLimit);
-        if (generationRepository.findById(Id) != null) return;
+        if (generationRepository.findById(Id).isPresent()) return;
         generationRepository.save(generation);
     }
 
     public Generation GetGeneration(Long Id){
         Optional<Generation> optionalGeneration = generationRepository.findById(Id);
-        if (optionalGeneration == null) return null;
+        if (optionalGeneration.isEmpty()) return null;
         Generation generation = optionalGeneration.get();
 
         return generation;

@@ -5,5 +5,5 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import dev.pokemonracer.model.Pokemon;
 
 public interface IPokemonRepository {
-    public Pokemon getPokemonWithId(int id) throws JsonMappingException, JsonProcessingException;
+    public Pokemon getPokemonWithId(int id);
 }
