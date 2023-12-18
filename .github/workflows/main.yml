@@ -44,7 +44,7 @@ jobs:
       runs-on: ubuntu-latest
       permissions: read-all 
       services:
-        mysql:
+        localhost:
           image: mysql:latest
           env:
             MYSQL_USER: root
