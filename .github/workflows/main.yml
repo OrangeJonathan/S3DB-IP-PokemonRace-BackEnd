@@ -48,7 +48,6 @@ jobs:
           image: mysql:8.0
           env:
             MYSQL_DATABASE: pokemonracerTest
-            MYSQL_USER: root
             MYSQL_PASSWORD: RooTPassworD1!
             MYSQL_ROOT_PASSWORD: RooTPassworD1!
           ports:
