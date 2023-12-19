@@ -31,12 +31,8 @@ public class UserServiceIT {
             .withDatabaseName("pokemonracerTest")
             .withUsername("root")
             .withPassword("RooTPassworD1!")
-            .withExposedPorts(3306)
             .waitingFor(Wait.forHealthcheck())
-            .withReuse(true)
-            .withNetworkMode("host")
             .withStartupTimeout(Duration.ofSeconds(120));
-    
 
     @Autowired
     private UserService userService;
