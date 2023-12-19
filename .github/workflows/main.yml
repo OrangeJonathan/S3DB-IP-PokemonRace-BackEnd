@@ -37,6 +37,7 @@ jobs:
               java-version: '17'
           - name: Test
             run: mvn test
+            
 
     IntegrationTesting:
       name: Integration Testing
@@ -54,7 +55,9 @@ jobs:
             java-version: '17'
 
         - name: Test
-          run: mvn verify
+          run: mvn -X verify
+          env:
+            TESTCONTAINERS_LOG_LEVEL: DEBUG
 
     SonarQube:
       name: SonarQube
