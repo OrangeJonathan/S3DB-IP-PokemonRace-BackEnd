@@ -30,8 +30,8 @@ public class UserServiceIT {
     @Container
     public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
             .withDatabaseName("pokemonracerTest")
-            .withUsername("testUser")
-            .withPassword("testPassword!")
+            .withUsername("root")
+            .withPassword("RooTPassworD1!")
             .waitingFor(Wait.forHealthcheck())
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("MySQL Container")));
 
