@@ -26,69 +26,69 @@ import dev.pokemonracer.service.FriendService;
 @SpringBootTest
 public class FriendServiceIT {
     
-    // @Container
-    // public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:5.7")
-    //         .withDatabaseName("pokemonracerTest")
-    //         .withUsername("root")
-    //         .withPassword("RooTPassworD1!")
-    //         .waitingFor(Wait.forHealthcheck())
-    //         .withStartupTimeout(Duration.ofSeconds(120));
+    @Container
+    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:5.7")
+            .withDatabaseName("pokemonracerTest")
+            .withUsername("root")
+            .withPassword("RooTPassworD1!")
+            .waitingFor(Wait.forHealthcheck())
+            .withStartupTimeout(Duration.ofSeconds(120));
 
-    // private FriendService friendService;
-    // private UserRepository userRepository;
-    // private FriendRepository friendRepository;
+    private FriendService friendService;
+    private UserRepository userRepository;
+    private FriendRepository friendRepository;
 
-    // @Autowired
-    // public FriendServiceIT(FriendService friendService, UserRepository userRepository, FriendRepository friendRepository) {
-    //     this.friendService = friendService;
-    //     this.userRepository = userRepository;
-    //     this.friendRepository = friendRepository;
-    // }
+    @Autowired
+    public FriendServiceIT(FriendService friendService, UserRepository userRepository, FriendRepository friendRepository) {
+        this.friendService = friendService;
+        this.userRepository = userRepository;
+        this.friendRepository = friendRepository;
+    }
 
-    // @DynamicPropertySource
-    // static void setDataSourceProperties(DynamicPropertyRegistry registry) {
-    //     registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-    //     registry.add("spring.datasource.username", mySQLContainer::getUsername);
-    //     registry.add("spring.datasource.password", mySQLContainer::getPassword);
-    // }
+    @DynamicPropertySource
+    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
+    }
 
-    // @AfterEach
-    // public void tearDown() {
-    //     friendRepository.deleteAll();
-    //     userRepository.deleteAll();
-    // }
+    @AfterEach
+    public void tearDown() {
+        friendRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 
-    // @AfterEach
-    // public void printContainerLogs() {
-    //     String logs = mySQLContainer.getLogs();
-    //     System.out.println("MySQL Logs:");
-    //     System.out.println(logs);
-    // }
+    @AfterEach
+    public void printContainerLogs() {
+        String logs = mySQLContainer.getLogs();
+        System.out.println("MySQL Logs:");
+        System.out.println(logs);
+    }
 
-    // @Test
-    // public void GetAcceptedFriendsByAuth0Id_FindFriends_ReturnAcceptedFriends() {
+    @Test
+    public void GetAcceptedFriendsByAuth0Id_FindFriends_ReturnAcceptedFriends() {
         
-    //     // Arrange
-    //     User friend1 = new User();
-    //     friend1.setAuth0Id("auth0|1234567890");
-    //     friend1.setEmail("integration@test.nl");
-    //     friend1.setUsername("integrationTest");
-    //     User friend2 = new User();
-    //     friend2.setAuth0Id("auth0|0987654321");
-    //     friend2.setEmail("test@integration.de");
-    //     friend2.setUsername("TestIntegration");
-    //     User_Friend userFriend1 = new User_Friend(friend1, friend2, true);
-    //     userRepository.save(friend1);
-    //     userRepository.save(friend2);
-    //     friendRepository.save(userFriend1);
+        // Arrange
+        User friend1 = new User();
+        friend1.setAuth0Id("auth0|1234567890");
+        friend1.setEmail("integration@test.nl");
+        friend1.setUsername("integrationTest");
+        User friend2 = new User();
+        friend2.setAuth0Id("auth0|0987654321");
+        friend2.setEmail("test@integration.de");
+        friend2.setUsername("TestIntegration");
+        User_Friend userFriend1 = new User_Friend(friend1, friend2, true);
+        userRepository.save(friend1);
+        userRepository.save(friend2);
+        friendRepository.save(userFriend1);
 
-    //     // Act
-    //     List<User> actualFriends = friendService.GetAcceptedFriendsByAuth0Id(friend1.getAuth0Id());
+        // Act
+        List<User> actualFriends = friendService.GetAcceptedFriendsByAuth0Id(friend1.getAuth0Id());
     
-    //     // Assert
-    //     assertEquals(1, actualFriends.size());
-    //     assertEquals(actualFriends.get(0).getAuth0Id(), friend2.getAuth0Id());
-    //     assertEquals(actualFriends.get(0).getEmail(), friend2.getEmail());
-    //     assertEquals(actualFriends.get(0).getUsername(), friend2.getUsername());
-    // }
+        // Assert
+        assertEquals(1, actualFriends.size());
+        assertEquals(actualFriends.get(0).getAuth0Id(), friend2.getAuth0Id());
+        assertEquals(actualFriends.get(0).getEmail(), friend2.getEmail());
+        assertEquals(actualFriends.get(0).getUsername(), friend2.getUsername());
+    }
 }
