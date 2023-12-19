@@ -29,7 +29,8 @@ public class UserServiceIT {
             .withPassword("RooTPassworD1!")
             .withExposedPorts(3306)
             .waitingFor(Wait.forHealthcheck())
-            .withReuse(true);
+            .withReuse(true)
+            .withNetworkMode("host");
 
     @Autowired
     private UserService userService;
