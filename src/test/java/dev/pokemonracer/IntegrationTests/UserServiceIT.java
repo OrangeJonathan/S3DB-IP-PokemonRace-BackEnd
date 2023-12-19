@@ -59,6 +59,7 @@ public class UserServiceIT {
     @AfterEach
     public void printContainerLogs() {
         String logs = mySQLContainer.getLogs();
+        System.out.println("MySQL Logs:");
         System.out.println(logs);
     }
 

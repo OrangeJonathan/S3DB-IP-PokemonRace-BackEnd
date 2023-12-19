@@ -2,10 +2,10 @@ package dev.pokemonracer.IntegrationTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -59,7 +59,14 @@ public class FriendServiceIT {
         userRepository.deleteAll();
     }
 
-    @org.junit.jupiter.api.Test
+    @AfterEach
+    public void printContainerLogs() {
+        String logs = mySQLContainer.getLogs();
+        System.out.println("MySQL Logs:");
+        System.out.println(logs);
+    }
+
+    @Test
     public void GetAcceptedFriendsByAuth0Id_FindFriends_ReturnAcceptedFriends() {
         
         // Arrange
