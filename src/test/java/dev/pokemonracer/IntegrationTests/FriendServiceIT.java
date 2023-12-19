@@ -31,7 +31,7 @@ public class FriendServiceIT {
             .withDatabaseName("pokemonracerTest")
             .withUsername("root")
             .withPassword("RooTPassworD1!")
-            .waitingFor(Wait.forLogMessage(".*Ready for connections.*\\n", 1))
+            .waitingFor(Wait.forHealthcheck())
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("MySQL Container")));
 
     private FriendService friendService;
