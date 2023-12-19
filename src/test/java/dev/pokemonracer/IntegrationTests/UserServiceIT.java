@@ -18,8 +18,6 @@ import dev.pokemonracer.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.Duration;
-
 @Testcontainers
 @SpringBootTest
 public class UserServiceIT {
@@ -30,7 +28,8 @@ public class UserServiceIT {
             .withUsername("root")
             .withPassword("RooTPassworD1!")
             .withExposedPorts(3306)
-            .waitingFor(Wait.forHealthcheck());
+            .waitingFor(Wait.forHealthcheck())
+            .withReuse(true);
 
     @Autowired
     private UserService userService;

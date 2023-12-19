@@ -31,7 +31,8 @@ public class FriendServiceIT {
             .withUsername("root")
             .withPassword("RooTPassworD1!")
             .withExposedPorts(3306)
-            .waitingFor(Wait.forHealthcheck());
+            .waitingFor(Wait.forHealthcheck())
+            .withReuse(true);
 
     private FriendService friendService;
     private UserRepository userRepository;
