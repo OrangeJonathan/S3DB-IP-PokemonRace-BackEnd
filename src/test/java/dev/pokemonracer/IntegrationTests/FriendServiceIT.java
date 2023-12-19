@@ -2,16 +2,15 @@ package dev.pokemonracer.IntegrationTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -32,7 +31,6 @@ public class FriendServiceIT {
             .withUsername("root")
             .withPassword("RooTPassworD1!")
             .withExposedPorts(3306)
-            .withStartupTimeout(Duration.ofSeconds(60)) // Adjust the timeout as needed
             .waitingFor(Wait.forHealthcheck());
 
     private FriendService friendService;

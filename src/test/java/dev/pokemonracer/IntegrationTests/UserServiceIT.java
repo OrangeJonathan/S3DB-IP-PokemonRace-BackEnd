@@ -1,16 +1,12 @@
 package dev.pokemonracer.IntegrationTests;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -25,8 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.Duration;
 
 @Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
+@SpringBootTest
 public class UserServiceIT {
 
     @Container
@@ -35,7 +30,6 @@ public class UserServiceIT {
             .withUsername("root")
             .withPassword("RooTPassworD1!")
             .withExposedPorts(3306)
-            .withStartupTimeout(Duration.ofSeconds(60)) // Adjust the timeout as needed
             .waitingFor(Wait.forHealthcheck());
 
     @Autowired
