@@ -54,6 +54,12 @@ jobs:
             distribution: 'corretto'
             java-version: '17'
 
+        - name: Set up Docker
+          uses: docker-practice/actions-setup-docker@master
+          with:
+            docker_version: 20.10
+            docker_buildx: false
+
         - name: Test
           run: mvn -X verify
           env:
