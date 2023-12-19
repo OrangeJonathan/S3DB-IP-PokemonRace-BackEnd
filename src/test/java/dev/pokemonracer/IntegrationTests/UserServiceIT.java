@@ -2,10 +2,14 @@ package dev.pokemonracer.IntegrationTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.FriendRepository;
@@ -13,20 +17,22 @@ import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.UserService;
 
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class UserServiceIT {
-    private UserService userService;
-    private UserRepository userRepository;
-    private FriendRepository friendRepository;
 
     @Autowired
-    public UserServiceIT(UserService userService, UserRepository userRepository, FriendRepository friendRepository) {
-        this.userService = userService;
-        this.userRepository = userRepository;
-        this.friendRepository = friendRepository;
-    }
+    private MockMvc mockMvc;
 
-    @AfterEach
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private FriendRepository friendRepository;
+
+    @BeforeEach
     public void tearDown() {
         friendRepository.deleteAll();
         userRepository.deleteAll();

@@ -46,7 +46,7 @@ jobs:
       env:
         DB_DATABASE: pokemonracerTest
         DB_USER: root
-        DB_PASSWORD: root
+        DB_PASSWORD: RooTPassworD1!
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
