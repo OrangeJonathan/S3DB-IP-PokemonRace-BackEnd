@@ -22,13 +22,21 @@ import dev.pokemonracer.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
+
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class UserServiceIT {
 
     @Container
-    private MySQLContainer<?> database = new MySQLContainer<>("mysql:8.0");
+    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
+            .withDatabaseName("pokemonracerTest")
+            .withUsername("root")
+            .withPassword("RooTPassworD1!")
+            .withExposedPorts(3306)
+            .withStartupTimeout(Duration.ofSeconds(60)) // Adjust the timeout as needed
+            .waitingFor(Wait.forHealthcheck());
 
     @Autowired
     private UserService userService;
@@ -37,6 +45,13 @@ public class UserServiceIT {
     private UserRepository userRepository;
     @Autowired
     private FriendRepository friendRepository;
+
+    @DynamicPropertySource
+    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
+    }
 
     @BeforeEach
     public void tearDown() {
