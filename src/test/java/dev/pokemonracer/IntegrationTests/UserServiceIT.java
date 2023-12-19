@@ -1,36 +1,50 @@
 package dev.pokemonracer.IntegrationTests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.FriendRepository;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.UserService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class UserServiceIT {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Container
+    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
+            .withDatabaseName("pokemonracerTest")
+            .withUsername("testUser")
+            .withPassword("testPassword!");
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private FriendRepository friendRepository;
+
+    @DynamicPropertySource
+    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
+    }
 
     @BeforeEach
     public void tearDown() {

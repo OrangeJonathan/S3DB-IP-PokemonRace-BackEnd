@@ -7,6 +7,11 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.model.User_Friend;
@@ -14,9 +19,16 @@ import dev.pokemonracer.repository.FriendRepository;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.FriendService;
 
+@Testcontainers
 @SpringBootTest
 public class FriendServiceIT {
     
+    @Container
+    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
+            .withDatabaseName("pokemonracerTest")
+            .withUsername("root")
+            .withPassword("RooTPassworD1!");
+
     private FriendService friendService;
     private UserRepository userRepository;
     private FriendRepository friendRepository;
@@ -26,6 +38,13 @@ public class FriendServiceIT {
         this.friendService = friendService;
         this.userRepository = userRepository;
         this.friendRepository = friendRepository;
+    }
+
+    @DynamicPropertySource
+    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
     }
 
     @AfterEach
