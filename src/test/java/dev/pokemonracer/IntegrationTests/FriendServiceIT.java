@@ -27,7 +27,7 @@ import dev.pokemonracer.service.FriendService;
 public class FriendServiceIT {
     
     @Container
-    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
+    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:5.7")
             .withDatabaseName("pokemonracerTest")
             .withUsername("root")
             .withPassword("RooTPassworD1!")
