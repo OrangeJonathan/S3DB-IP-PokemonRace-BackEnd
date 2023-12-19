@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -27,7 +28,8 @@ public class FriendServiceIT {
     public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
             .withDatabaseName("pokemonracerTest")
             .withUsername("root")
-            .withPassword("RooTPassworD1!");
+            .withPassword("RooTPassworD1!")
+            .waitingFor(Wait.forListeningPort());
 
     private FriendService friendService;
     private UserRepository userRepository;
