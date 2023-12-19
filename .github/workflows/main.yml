@@ -47,6 +47,13 @@ jobs:
         DB_DATABASE: pokemonracerTest
         DB_USER: root
         DB_PASSWORD: RooTPassworD1!
+      services:
+        mysql:
+          image: mysql:8.0
+          env:
+            MYSQL_ROOT_PASSWORD: ${{ env.DB_PASSWORD }}
+            MYSQL_DATABASE: ${{ env.DB_DATABASE }}
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
@@ -56,13 +63,7 @@ jobs:
           with:
             distribution: 'corretto'
             java-version: '17'
-
-        - name: Set up MySQL
-          run: |
-            sudo /etc/init.d/mysql start
-            sleep 10  # Add a sleep to wait for MySQL to fully start
-            mysql -e "CREATE DATABASE IF NOT EXISTS ${{ env.DB_DATABASE }};" -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}          
-        
+            
         - name: Test
           run: mvn verify
 
