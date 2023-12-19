@@ -28,12 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserServiceIT {
 
     @Container
-    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0")
-            .withDatabaseName("pokemonracerTest")
-            .withUsername("root")
-            .withPassword("RooTPassworD1!")
-            .waitingFor(Wait.forHealthcheck())
-            .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("MySQL Container")));
+    private MySQLContainer<?> database = new MySQLContainer<>("mysql:8.0");
 
     @Autowired
     private UserService userService;
@@ -42,13 +37,6 @@ public class UserServiceIT {
     private UserRepository userRepository;
     @Autowired
     private FriendRepository friendRepository;
-
-    @DynamicPropertySource
-    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", mySQLContainer::getUsername);
-        registry.add("spring.datasource.password", mySQLContainer::getPassword);
-    }
 
     @BeforeEach
     public void tearDown() {
