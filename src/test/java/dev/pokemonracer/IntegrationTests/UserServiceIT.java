@@ -32,7 +32,7 @@ public class UserServiceIT {
             .withDatabaseName("pokemonracerTest")
             .withUsername("testUser")
             .withPassword("testPassword!")
-            .waitingFor(Wait.forListeningPort())
+            .waitingFor(Wait.forLogMessage(".*Ready for connections.*\\n", 1))
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("MySQL Container")));
 
     @Autowired
