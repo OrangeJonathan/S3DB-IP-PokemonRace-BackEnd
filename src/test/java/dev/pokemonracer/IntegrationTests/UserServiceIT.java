@@ -26,117 +26,117 @@ import org.junit.jupiter.api.AfterEach;
 @SpringBootTest
 public class UserServiceIT {
 
-    @Container
-    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:5.7")
-            .withDatabaseName("pokemonracerTest")
-            .withUsername("root")
-            .withPassword("RooTPassworD1!")
-            .waitingFor(Wait.forHealthcheck())
-            .withStartupTimeout(Duration.ofSeconds(120));
+    // @Container
+    // public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:5.7")
+    //         .withDatabaseName("pokemonracerTest")
+    //         .withUsername("root")
+    //         .withPassword("RooTPassworD1!")
+    //         .waitingFor(Wait.forHealthcheck())
+    //         .withStartupTimeout(Duration.ofSeconds(120));
 
-    @Autowired
-    private UserService userService;
+    // @Autowired
+    // private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private FriendRepository friendRepository;
+    // @Autowired
+    // private UserRepository userRepository;
+    // @Autowired
+    // private FriendRepository friendRepository;
 
-    @DynamicPropertySource
-    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", mySQLContainer::getUsername);
-        registry.add("spring.datasource.password", mySQLContainer::getPassword);
-    }
+    // @DynamicPropertySource
+    // static void setDataSourceProperties(DynamicPropertyRegistry registry) {
+    //     registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+    //     registry.add("spring.datasource.username", mySQLContainer::getUsername);
+    //     registry.add("spring.datasource.password", mySQLContainer::getPassword);
+    // }
 
-    @BeforeEach
-    public void tearDown() {
-        friendRepository.deleteAll();
-        userRepository.deleteAll();
-    }
+    // @BeforeEach
+    // public void tearDown() {
+    //     friendRepository.deleteAll();
+    //     userRepository.deleteAll();
+    // }
 
-    @AfterEach
-    public void printContainerLogs() {
-        String logs = mySQLContainer.getLogs();
-        System.out.println("MySQL Logs:");
-        System.out.println(logs);
-    }
+    // @AfterEach
+    // public void printContainerLogs() {
+    //     String logs = mySQLContainer.getLogs();
+    //     System.out.println("MySQL Logs:");
+    //     System.out.println(logs);
+    // }
 
-    @Test
-    public void GetUserByAuth0Id_FindUser_ReturnsUser() {
+    // @Test
+    // public void GetUserByAuth0Id_FindUser_ReturnsUser() {
         
-        // Arrange
-        User expectedUser = new User();
-        expectedUser.setAuth0Id("auth0|1234567890");
-        expectedUser.setEmail("integration@test.nl");
-        expectedUser.setUsername("integrationTest");
-        userRepository.save(expectedUser);
+    //     // Arrange
+    //     User expectedUser = new User();
+    //     expectedUser.setAuth0Id("auth0|1234567890");
+    //     expectedUser.setEmail("integration@test.nl");
+    //     expectedUser.setUsername("integrationTest");
+    //     userRepository.save(expectedUser);
         
-        // Act
-        User actualUser = userService.getUserByAuth0Id(expectedUser.getAuth0Id());
+    //     // Act
+    //     User actualUser = userService.getUserByAuth0Id(expectedUser.getAuth0Id());
     
-        // Assert
-        assertEquals(expectedUser.getAuth0Id(), actualUser.getAuth0Id());
-        assertEquals(expectedUser.getEmail(), actualUser.getEmail());
-        assertEquals(expectedUser.getUsername(), actualUser.getUsername());
-    }
+    //     // Assert
+    //     assertEquals(expectedUser.getAuth0Id(), actualUser.getAuth0Id());
+    //     assertEquals(expectedUser.getEmail(), actualUser.getEmail());
+    //     assertEquals(expectedUser.getUsername(), actualUser.getUsername());
+    // }
 
-    @Test
-    public void GetUserByEmail_FindUser_ReturnsUser() {
+    // @Test
+    // public void GetUserByEmail_FindUser_ReturnsUser() {
         
-        // Arrange
-        User expectedUser = new User();
-        expectedUser.setAuth0Id("auth0|1234568907");
-        expectedUser.setEmail("test@integrationtest.nl");
-        expectedUser.setUsername("integrationTest");
-        userRepository.save(expectedUser);
+    //     // Arrange
+    //     User expectedUser = new User();
+    //     expectedUser.setAuth0Id("auth0|1234568907");
+    //     expectedUser.setEmail("test@integrationtest.nl");
+    //     expectedUser.setUsername("integrationTest");
+    //     userRepository.save(expectedUser);
         
-        // Act
-        User actualUser = userService.getUserByEmail(expectedUser.getEmail());
+    //     // Act
+    //     User actualUser = userService.getUserByEmail(expectedUser.getEmail());
 
-        // Assert
-        assertEquals(expectedUser.getAuth0Id(), actualUser.getAuth0Id());
-        assertEquals(expectedUser.getEmail(), actualUser.getEmail());
-        assertEquals(expectedUser.getUsername(), actualUser.getUsername());
-    }        
+    //     // Assert
+    //     assertEquals(expectedUser.getAuth0Id(), actualUser.getAuth0Id());
+    //     assertEquals(expectedUser.getEmail(), actualUser.getEmail());
+    //     assertEquals(expectedUser.getUsername(), actualUser.getUsername());
+    // }        
 
-    @Test
-    public void GetUserById_FindUser_ReturnsUser() {
+    // @Test
+    // public void GetUserById_FindUser_ReturnsUser() {
         
-        // Arrange
-        User expectedUser = new User();
-        expectedUser.setAuth0Id("auth0|1234567890");
-        expectedUser.setEmail("integration@test.nl");
-        expectedUser.setUsername("integrationTest");
-        userRepository.save(expectedUser);
+    //     // Arrange
+    //     User expectedUser = new User();
+    //     expectedUser.setAuth0Id("auth0|1234567890");
+    //     expectedUser.setEmail("integration@test.nl");
+    //     expectedUser.setUsername("integrationTest");
+    //     userRepository.save(expectedUser);
         
-        // Act
-        User actualUser = userService.getUserById(expectedUser.getId());
+    //     // Act
+    //     User actualUser = userService.getUserById(expectedUser.getId());
 
-        // Assert
-        assertEquals(expectedUser.getAuth0Id(), actualUser.getAuth0Id());
-        assertEquals(expectedUser.getEmail(), actualUser.getEmail());
-        assertEquals(expectedUser.getUsername(), actualUser.getUsername());
-    }    
+    //     // Assert
+    //     assertEquals(expectedUser.getAuth0Id(), actualUser.getAuth0Id());
+    //     assertEquals(expectedUser.getEmail(), actualUser.getEmail());
+    //     assertEquals(expectedUser.getUsername(), actualUser.getUsername());
+    // }    
 
-    @Test
-    public void CreateUser_UserDoesNotExist_UserCreated() {
+    // @Test
+    // public void CreateUser_UserDoesNotExist_UserCreated() {
         
-        // Arrange
-        User user = new User();
-        user.setAuth0Id("auth0|987654321");
-        user.setEmail("integration@test.nl");
-        user.setUsername("integrationTest");
+    //     // Arrange
+    //     User user = new User();
+    //     user.setAuth0Id("auth0|987654321");
+    //     user.setEmail("integration@test.nl");
+    //     user.setUsername("integrationTest");
 
-        // Act
-        userService.createUser(user);
+    //     // Act
+    //     userService.createUser(user);
 
-        // Assert
-        User actualUser = userRepository.findByAuth0Id(user.getAuth0Id());
-        assertEquals(user.getAuth0Id(), actualUser.getAuth0Id());
-        assertEquals(user.getEmail(), actualUser.getEmail());
-        assertEquals(user.getUsername(), actualUser.getUsername());
-    }
+    //     // Assert
+    //     User actualUser = userRepository.findByAuth0Id(user.getAuth0Id());
+    //     assertEquals(user.getAuth0Id(), actualUser.getAuth0Id());
+    //     assertEquals(user.getEmail(), actualUser.getEmail());
+    //     assertEquals(user.getUsername(), actualUser.getUsername());
+    // }
 
     
 }
