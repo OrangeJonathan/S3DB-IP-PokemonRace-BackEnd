@@ -18,6 +18,8 @@ import dev.pokemonracer.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.AfterEach;
+
 @Testcontainers
 @SpringBootTest
 public class UserServiceIT {
@@ -31,6 +33,7 @@ public class UserServiceIT {
             .waitingFor(Wait.forHealthcheck())
             .withReuse(true)
             .withNetworkMode("host");
+    
 
     @Autowired
     private UserService userService;
@@ -51,6 +54,12 @@ public class UserServiceIT {
     public void tearDown() {
         friendRepository.deleteAll();
         userRepository.deleteAll();
+    }
+
+    @AfterEach
+    public void printContainerLogs() {
+        String logs = mySQLContainer.getLogs();
+        System.out.println(logs);
     }
 
     @Test
