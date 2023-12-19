@@ -2,6 +2,7 @@ package dev.pokemonracer.IntegrationTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -33,7 +34,8 @@ public class FriendServiceIT {
             .withExposedPorts(3306)
             .waitingFor(Wait.forHealthcheck())
             .withReuse(true)
-            .withNetworkMode("host");
+            .withNetworkMode("host")
+            .withStartupTimeout(Duration.ofSeconds(120));
 
     private FriendService friendService;
     private UserRepository userRepository;

@@ -18,6 +18,8 @@ import dev.pokemonracer.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterEach;
 
 @Testcontainers
@@ -32,7 +34,8 @@ public class UserServiceIT {
             .withExposedPorts(3306)
             .waitingFor(Wait.forHealthcheck())
             .withReuse(true)
-            .withNetworkMode("host");
+            .withNetworkMode("host")
+            .withStartupTimeout(Duration.ofSeconds(120));
     
 
     @Autowired
