@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
 import dev.pokemonracer.serviceInterfaces.IGenerationService;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
+import lombok.Getter;
+import lombok.Setter;
 import dev.pokemonracer.exceptions.PokemonApiException;
 import dev.pokemonracer.model.Generation;
 import dev.pokemonracer.model.Pokemon;
 
+@Getter
+@Setter
 @Service
 public class PokeAPIservice implements IPokeAPIService {
  
@@ -20,30 +24,7 @@ public class PokeAPIservice implements IPokeAPIService {
     private int max;
     private int min;
     private int range;
-
-    public void setMax(int max) {
-        this.max = max;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public int getRange() {
-        return range;
-    }
+    private SecureRandom secureRandom;
 
     private IPokemonRepository pokemonRepository;
     private IGenerationService generationService;
@@ -51,6 +32,7 @@ public class PokeAPIservice implements IPokeAPIService {
     public PokeAPIservice(IPokemonRepository pokemonRepository, IGenerationService generationService) {
         this.pokemonRepository = pokemonRepository;
         this.generationService = generationService;
+        this.secureRandom = new SecureRandom();
     }
 
     private void setGeneration(int id) {
@@ -63,7 +45,6 @@ public class PokeAPIservice implements IPokeAPIService {
     public int generateRandomPokemonId(int generationNumber) {
         int id;
         setGeneration(generationNumber);
-        SecureRandom secureRandom = new SecureRandom();
         do {
             id = secureRandom.nextInt(range) + min;
         } while (generatedPokemonIds.contains(id));

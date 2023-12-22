@@ -1,5 +1,6 @@
 package dev.pokemonracer.UnitTests;
 
+import dev.pokemonracer.model.FriendID;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.model.User_Friend;
 import dev.pokemonracer.repository.FriendRepository;
@@ -198,7 +199,7 @@ public class FriendServiceTest {
     }
 
     @Test
-    public void testGetFriendsByAuth0Id_ForLoop() {
+    public void GetFriendsByAuth0Id_ForEveryUserFriend_ReturnFriends() {
         // Arrange
         User user = new User();
         user.setId(1L);
@@ -210,6 +211,36 @@ public class FriendServiceTest {
 
         // Act
         List<User> friends = friendService.getFriendsByAuth0Id("auth0id123", true);
+
+        // Assert
+        assertEquals(1, friends.size());
+        assertEquals(friendUser, friends.get(0));
+    }
+
+    @Test
+    public void GetFriendsByAuth0Id_IfUserId_UseFriendID() {
+        // Arrange
+        User user = new User();
+        user.setId(1L);
+        User friendUser = new User();
+        friendUser.setId(2L);
+        User_Friend userFriend = new User_Friend(user, friendUser, true);
+        when(userService.getUserByAuth0Id(any())).thenReturn(user);
+        when(friendRepository.findByIdFriendAndIsAccepted(any(), anyBoolean())).thenReturn(Arrays.asList(userFriend));
+
+        // Act
+        List<User> friends = friendService.getFriendsByAuth0Id("auth0id123", true);
+
+        // Assert
+        assertEquals(1, friends.size());
+        assertEquals(friendUser, friends.get(0));
+
+        // Arrange
+        userFriend.setId(new FriendID(friendUser, user));
+        when(friendRepository.findByIdFriendAndIsAccepted(any(), anyBoolean())).thenReturn(Arrays.asList(userFriend));
+
+        // Act
+        friends = friendService.getFriendsByAuth0Id("auth0id123", true);
 
         // Assert
         assertEquals(1, friends.size());

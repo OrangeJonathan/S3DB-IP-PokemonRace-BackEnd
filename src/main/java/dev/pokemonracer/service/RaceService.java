@@ -1,14 +1,12 @@
 package dev.pokemonracer.service;
 
-import static dev.pokemonracer.model.RaceStatus.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.triceracode.pokeapi.model.resource.game.Generation;
-
+import static dev.pokemonracer.model.RaceStatus.*;
 import dev.pokemonracer.model.Race;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.RaceRepository;
@@ -55,9 +53,9 @@ public class RaceService {
     }
 
     public List<Race> GetCompletedRaces(User player) { 
-        List<Race> races = raceRepository.findByPlayer1AndStatus(player, COMPLETED);
-        races.addAll(raceRepository.findByPlayer2AndStatus(player, COMPLETED));
-
-        return races;
+        List<Race> racesAsPlayer1 = new ArrayList<>(raceRepository.findByPlayer1AndStatus(player, COMPLETED));
+        List<Race> racesAsPlayer2 = new ArrayList<>(raceRepository.findByPlayer2AndStatus(player, COMPLETED));
+        racesAsPlayer1.addAll(racesAsPlayer2);
+        return racesAsPlayer1;
     }
 }
