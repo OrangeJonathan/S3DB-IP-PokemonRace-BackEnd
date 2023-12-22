@@ -9,6 +9,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -121,7 +123,7 @@ public class UserServiceTest {
     @Test
     void GetUserById_UserDoesNotExist_ShouldReturnNull() {
         // Arrange
-        when(userRepository.findById(anyLong())).thenReturn(null);
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         // Act
         User result = userService.getUserById(151L);
