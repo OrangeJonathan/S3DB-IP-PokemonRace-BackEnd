@@ -28,6 +28,7 @@ public class RaceService {
     public Race CreateRace(User player1, User player2, long generationId, java.util.Date timeLimit) {
         Race race = new Race();
         race.setPlayer1(player1);
+        race.setPlayer2(player2);
         race.setGeneration(generationService.GetGeneration(generationId));
         race.setTimeLimit(timeLimit);
         race.setStatus(PENDING);

@@ -63,7 +63,7 @@ public class UserServiceIT {
     }
 
     @Test
-    public void GetUserByAuth0Id_FindUser_ReturnsUser() {
+    void GetUserByAuth0Id_FindUser_ReturnsUser() {
         
         // Arrange
         User expectedUser = new User();
@@ -82,7 +82,7 @@ public class UserServiceIT {
     }
 
     @Test
-    public void GetUserByEmail_FindUser_ReturnsUser() {
+    void GetUserByEmail_FindUser_ReturnsUser() {
         
         // Arrange
         User expectedUser = new User();
@@ -101,7 +101,7 @@ public class UserServiceIT {
     }        
 
     @Test
-    public void GetUserById_FindUser_ReturnsUser() {
+    void GetUserById_FindUser_ReturnsUser() {
         
         // Arrange
         User expectedUser = new User();
@@ -120,7 +120,7 @@ public class UserServiceIT {
     }    
 
     @Test
-    public void CreateUser_UserDoesNotExist_UserCreated() {
+    void CreateUser_UserDoesNotExist_UserCreated() {
         
         // Arrange
         User user = new User();

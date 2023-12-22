@@ -32,7 +32,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void InsertGeneration_DoesNotExist_GenerationInserted() {
+    void InsertGeneration_DoesNotExist_GenerationInserted() {
         
         // Arrange
         Long id = 1L;
@@ -51,7 +51,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void InsertGeneration_GenerationAlreadyExists_GenerationNotInserted() {
+    void InsertGeneration_GenerationAlreadyExists_GenerationNotInserted() {
         
         // Arrange
         Long id = 1L;
@@ -68,7 +68,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void GetGeneration_GenerationExists_ReturnsGeneration() {
+    void GetGeneration_GenerationExists_ReturnsGeneration() {
         
         // Arrange
         Long id = 1L;
@@ -84,7 +84,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void GetGeneration_GenerationDoesNotExist_ReturnsNull() {
+    void GetGeneration_GenerationDoesNotExist_ReturnsNull() {
         
         // Arrange
         Long id = 1L;
@@ -99,7 +99,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void GetAllGenerations_ReturnsAllGenerations() {
+    void GetAllGenerations_ReturnsAllGenerations() {
         
         // Arrange
         List<Generation> expectedGenerations = Arrays.asList(new Generation(1L, 1, 151), new Generation(2L, 152, 251));
@@ -114,7 +114,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void UpdateGeneration_GenerationExists_UpdatesGeneration() {
+    void UpdateGeneration_GenerationExists_UpdatesGeneration() {
         
         // Arrange
         Long id = 1L;
@@ -136,7 +136,7 @@ public class GenerationServiceTest {
     }
 
     @Test
-    public void UpdateGeneration_GenerationDoesNotExist_Returns() {
+    void UpdateGeneration_GenerationDoesNotExist_Returns() {
         
         // Arrange
         Long id = 1L;

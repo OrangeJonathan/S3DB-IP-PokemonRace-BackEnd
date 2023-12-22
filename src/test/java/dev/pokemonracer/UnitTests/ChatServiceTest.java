@@ -34,7 +34,7 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void SaveChat_ChatShouldBeInserted() {
+    void SaveChat_ChatShouldBeInserted() {
         // Arrange
         ChatMessage chatMessage = new ChatMessage();
         when(chatMessageRepository.save(any(ChatMessage.class))).thenReturn(chatMessage);
@@ -47,7 +47,7 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void SaveChat_NullChat_ShouldThrowException() {
+    void SaveChat_NullChat_ShouldThrowException() {
         // Arrange
         ChatMessage chatMessage = null;
 
@@ -56,7 +56,7 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void GetChatsBySenderAndReciever_ChatExists_ReturnsChats() {
+    void GetChatsBySenderAndReciever_ChatExists_ReturnsChats() {
         // Arrange
         User sender = new User();
         sender.setId(1L);
@@ -83,7 +83,7 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void GetChatsBySenderAndReciever_NullSenderId_ShouldThrowException() {
+    void GetChatsBySenderAndReciever_NullSenderId_ShouldThrowException() {
         // Arrange
         Long senderId = null;
         Long receiverId = 2L;
@@ -93,7 +93,7 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void GetChatsBySenderAndReciever_NullReceiverId_ShouldThrowException() {
+    void GetChatsBySenderAndReciever_NullReceiverId_ShouldThrowException() {
         // Arrange
         Long senderId = 1L;
         Long receiverId = null;
@@ -103,7 +103,7 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void GetChatsBySenderAndReciever_NonExistingUsers_ShouldReturnEmptyList() {
+    void GetChatsBySenderAndReciever_NonExistingUsers_ShouldReturnEmptyList() {
         // Arrange
         Long senderId = 1L;
         Long receiverId = 2L;

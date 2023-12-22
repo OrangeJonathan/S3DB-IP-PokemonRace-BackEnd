@@ -3,7 +3,9 @@ package dev.pokemonracer.UnitTests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,8 +31,8 @@ public class UserServiceTest {
     }
 
     @Test
-    public void CreateUser_UserDoesNotExist_UserShouldBeCreated() {
-        // Arrange
+    void CreateUser_UserDoesNotExist_UserShouldBeCreated() {
+        // Arrange  
         User user = new User();
         user.setAuth0Id("auth0id123");
         user.setEmail("test@example.com");
@@ -45,7 +47,22 @@ public class UserServiceTest {
     }
 
     @Test
-    public void GetUserByAuth0Id_UserExists_UserShouldBeReturned() {
+    void CreateUser_UserAlreadyExists_UserShouldNotBeCreated() {
+        // Arrange
+        User user = new User();
+        user.setAuth0Id("auth0|ID1234");
+        user.setEmail("test@gmail.nl");
+        when(userRepository.findByAuth0Id("auth0|ID1234")).thenReturn(user);
+        
+        // Act
+        userService.createUser(user);
+
+        // Assert
+        verify(userRepository, never()).save(user);
+    }
+
+    @Test
+    void GetUserByAuth0Id_UserExists_UserShouldBeReturned() {
         // Arrange
         User user = new User();
         user.setAuth0Id("auth0id123");
@@ -60,7 +77,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void GetUserById_UserExists_UserShouldBeReturned() {
+    void GetUserById_UserExists_UserShouldBeReturned() {
         // Arrange
         User user = new User();
         user.setId(1L);
@@ -75,7 +92,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void GetUserByEmail_UserExists_UserShouldBeReturned() {
+    void GetUserByEmail_UserExists_UserShouldBeReturned() {
         // Arrange
         User user = new User();
         user.setEmail("test@example.com");
@@ -90,12 +107,24 @@ public class UserServiceTest {
     }
 
     @Test
-    public void GetUserByAuth0Id_UserDoesNotExist_ShouldReturnNull() {
+    void GetUserByAuth0Id_UserDoesNotExist_ShouldReturnNull() {
         // Arrange
         when(userRepository.findByAuth0Id("nonexistent")).thenReturn(null);
 
         // Act
         User result = userService.getUserByAuth0Id("nonexistent");
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void GetUserById_UserDoesNotExist_ShouldReturnNull() {
+        // Arrange
+        when(userRepository.findById(anyLong())).thenReturn(null);
+
+        // Act
+        User result = userService.getUserById(151L);
 
         // Assert
         assertNull(result);

@@ -66,7 +66,7 @@ public class FriendServiceIT {
     }
 
     @Test
-    public void GetAcceptedFriendsByAuth0Id_FindFriends_ReturnAcceptedFriends() {
+    void GetAcceptedFriendsByAuth0Id_FindFriends_ReturnAcceptedFriends() {
         
         // Arrange
         User friend1 = new User();

@@ -32,8 +32,8 @@ public class UserService implements IUserService {
         return user;
     }
 
-    public User getUserByEmail(String receiver_email) {
-        User user = userRepository.findUserByEmail(receiver_email);
+    public User getUserByEmail(String recieverEmail) {
+        User user = userRepository.findUserByEmail(recieverEmail);
         if (user == null) return null;	
         return user;
     }

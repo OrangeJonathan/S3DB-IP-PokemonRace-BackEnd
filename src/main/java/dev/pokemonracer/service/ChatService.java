@@ -32,7 +32,7 @@ public class ChatService implements IChatService{
 
     public List<ChatMessage> GetChatsBySenderAndReciever(Long senderId, Long recieverId) {
         try {
-            if (senderId == null || recieverId == null ) throw new Exception("senderID or recieverID is null");
+            if (senderId == null || recieverId == null ) throw new IllegalArgumentException("senderID or recieverID is null");
             List<ChatMessage> chats = chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(senderId), userService.getUserById(recieverId));
             chats.addAll(chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(recieverId), userService.getUserById(senderId)));
             List<ChatMessage> sortedChats = SortListByTimeSent(chats);

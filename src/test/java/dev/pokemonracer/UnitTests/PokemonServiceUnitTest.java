@@ -2,6 +2,9 @@ package dev.pokemonracer.UnitTests;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -48,6 +51,27 @@ class PokemonServiceUnitTest {
 
         // Assert
         assertTrue(randomPokemonId >= 1 && randomPokemonId <= 151);
+    }
+
+    @Test
+    public void testGenerateRandomPokemonId_WhileLoop() {
+        // Arrange
+        Generation generation = new Generation();
+        generation.setUpperLimit(151);
+        generation.setLowerLimit(1);
+
+        when(generationService.GetGeneration(1L)).thenReturn(generation);
+        Set<Integer> ids = new HashSet<>();
+        for (int i = 1; i <= 100; i++) {
+            ids.add(i);
+        }
+        pokeAPIservice.setGeneratedPokemonIds(ids);
+
+        // Act
+        int id = pokeAPIservice.generateRandomPokemonId(1);
+
+        // Assert
+        assertTrue(id > 100 && id <= 151);
     }
 
     @Test

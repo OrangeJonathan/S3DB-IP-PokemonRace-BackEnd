@@ -53,8 +53,8 @@ public class PokeAPIservice implements IPokeAPIService {
         this.generationService = generationService;
     }
 
-    private void SetGeneration(int Id) {
-        Generation generation = generationService.GetGeneration(Long.valueOf(Id));
+    private void setGeneration(int id) {
+        Generation generation = generationService.GetGeneration(Long.valueOf(id));
         max = generation.getUpperLimit();
         min = generation.getLowerLimit();
         range = max - min;
@@ -62,7 +62,7 @@ public class PokeAPIservice implements IPokeAPIService {
 
     public int generateRandomPokemonId(int generationNumber) {
         int id;
-        SetGeneration(generationNumber);
+        setGeneration(generationNumber);
         SecureRandom secureRandom = new SecureRandom();
         do {
             id = secureRandom.nextInt(range) + min;
@@ -73,12 +73,10 @@ public class PokeAPIservice implements IPokeAPIService {
     public Pokemon getPokemonWithId(int id) {
         try {
             generatedPokemonIds.add(id);
-            var pokemon = pokemonRepository.getPokemonWithId(id);
-            return pokemon;
+            return pokemonRepository.getPokemonWithId(id);
         } catch (PokemonApiException ex) {
-            throw ex;
+            throw new PokemonApiException(ex.getMessage());
         }
-        
     }
 
     public void resetGuessedPokemonList()
