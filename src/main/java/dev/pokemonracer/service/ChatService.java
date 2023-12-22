@@ -21,16 +21,26 @@ public class ChatService implements IChatService{
     }
 
     public void SaveChat(ChatMessage chatMessage) {
-        chatMessage.setTimeSent(new java.util.Date());
-        chatMessageRepository.save(chatMessage);
+        try {
+            chatMessage.setTimeSent(new java.util.Date());
+            chatMessageRepository.save(chatMessage);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+        
     }
 
     public List<ChatMessage> GetChatsBySenderAndReciever(Long senderId, Long recieverId) {
-        List<ChatMessage> chats = chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(senderId), userService.getUserById(recieverId));
-        chats.addAll(chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(recieverId), userService.getUserById(senderId)));
-        List<ChatMessage> sortedChats = SortListByTimeSent(chats);
-
-        return sortedChats;
+        try {
+            if (senderId == null || recieverId == null ) throw new Exception("senderID or recieverID is null");
+            List<ChatMessage> chats = chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(senderId), userService.getUserById(recieverId));
+            chats.addAll(chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(recieverId), userService.getUserById(senderId)));
+            List<ChatMessage> sortedChats = SortListByTimeSent(chats);
+    
+            return sortedChats;
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     private List<ChatMessage> SortListByTimeSent(List<ChatMessage> list) {

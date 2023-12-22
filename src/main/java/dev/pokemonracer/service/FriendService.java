@@ -56,7 +56,7 @@ public class FriendService implements IFriendService {
         friendRepository.delete(userFriend);
     }
 
-    private User_Friend getUser_friend(String sender_auth0Id, String receiver_auth0Id) {
+    public User_Friend getUser_friend(String sender_auth0Id, String receiver_auth0Id) {
         User sender = userService.getUserByAuth0Id(sender_auth0Id);
         User receiver = userService.getUserByAuth0Id(receiver_auth0Id);
         User_Friend userFriend = friendRepository.findByIdUserAndIdFriend(sender, receiver);
@@ -64,7 +64,7 @@ public class FriendService implements IFriendService {
         return userFriend;
     }
 
-    private List<User> GetFriendsByAuth0Id(String auth0Id, Boolean accepted) {
+    public List<User> GetFriendsByAuth0Id(String auth0Id, Boolean accepted) {
         User user = userService.getUserByAuth0Id(auth0Id);
         Long userId = user.getId();
         
@@ -81,6 +81,4 @@ public class FriendService implements IFriendService {
     
         return friendList;
     }    
-
-    
 }

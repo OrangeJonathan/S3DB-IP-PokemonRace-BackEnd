@@ -5,9 +5,6 @@ import java.security.SecureRandom;
 import java.util.HashSet;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
 import dev.pokemonracer.serviceInterfaces.IGenerationService;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;

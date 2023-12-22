@@ -15,7 +15,7 @@ public class UserMapper {
     public User toUser(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
-        user.setAuth0Id(userDTO.getAuth0_id());
+        user.setAuth0Id(userDTO.getAuth0Id());
         user.setEmail(userDTO.getEmail());
         return user;
     }

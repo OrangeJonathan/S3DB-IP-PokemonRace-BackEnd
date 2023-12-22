@@ -21,7 +21,7 @@ public class ChatMapper {
     }
 
     public ChatMessage toChatMessage(ChatMessageDTO msgDTO) {
-        ChatMessage msg = new ChatMessage(userService.getUserByAuth0Id(msgDTO.getSender_id()), userService.getUserByAuth0Id(msgDTO.getRecipientId()), msgDTO.getContent(), msgDTO.getTimeSent());
+        ChatMessage msg = new ChatMessage(userService.getUserByAuth0Id(msgDTO.getSenderId()), userService.getUserByAuth0Id(msgDTO.getRecipientId()), msgDTO.getContent(), msgDTO.getTimeSent());
         return msg;
     }
 }

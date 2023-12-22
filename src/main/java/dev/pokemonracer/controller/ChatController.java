@@ -16,8 +16,10 @@ import dev.pokemonracer.mapper.ChatMapper;
 import dev.pokemonracer.model.ChatMessage;
 import dev.pokemonracer.serviceInterfaces.IChatService;
 import dev.pokemonracer.serviceInterfaces.IUserService;
+import lombok.Getter;
 
 @RestController
+@Getter
 @RequestMapping("api/chat")
 public class ChatController {
 
