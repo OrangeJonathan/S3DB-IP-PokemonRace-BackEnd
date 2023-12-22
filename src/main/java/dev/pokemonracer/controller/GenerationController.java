@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pokemonracer.DTOs.GenerationDTO;
+import dev.pokemonracer.dto.GenerationDTO;
 import dev.pokemonracer.mapper.GenerationMapper;
 import dev.pokemonracer.model.Generation;
 import dev.pokemonracer.serviceInterfaces.IGenerationService;

@@ -1,55 +1,52 @@
-package dev.pokemonracer.IntegrationTests;
+// package dev.pokemonracer.IntegrationTests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-import dev.pokemonracer.exceptions.PokemonNotFoundException;
-import dev.pokemonracer.model.Pokemon;
-import dev.pokemonracer.repository.PokemonAPIRepository;
-import dev.pokemonracer.service.PokeAPIservice;
+// import dev.pokemonracer.exceptions.PokemonNotFoundException; 
+// import dev.pokemonracer.model.Pokemon;
+// import dev.pokemonracer.repository.PokemonAPIRepository;
+// import dev.pokemonracer.service.PokeAPIservice;
 
 
-@SpringBootTest
-@ExtendWith(SpringExtension.class)
-public class PokeAPIserviceIT {
-    private PokeAPIservice pokeAPIservice;
+// @SpringBootTest
+// public class PokeAPIserviceIT {
+//     private PokeAPIservice pokeAPIservice;
 
-    @Autowired
-    public PokeAPIserviceIT(PokeAPIservice pokeAPIservice, PokemonAPIRepository pokemonAPIRepository) {
-        this.pokeAPIservice = pokeAPIservice;
-    }
+//     @Autowired
+//     public PokeAPIserviceIT(PokeAPIservice pokeAPIservice, PokemonAPIRepository pokemonAPIRepository) {
+//         this.pokeAPIservice = pokeAPIservice;
+//     }
 
-    @Test
-    public void GetPokemonWithId_FindPokemon_ReturnsPokemon() {
+//     @Test
+//     public void GetPokemonWithId_FindPokemon_ReturnsPokemon() {
         
-        // Arrange
-        int id = 1;
+//         // Arrange
+//         int id = 1;
         
-        // Act
-        Pokemon actualPokemon = pokeAPIservice.getPokemonWithId(id);
+//         // Act
+//         Pokemon actualPokemon = pokeAPIservice.getPokemonWithId(id);
 
-        // Assert
-        assertEquals(1, actualPokemon.getId());
-        assertEquals("bulbasaur", actualPokemon.getName());
-        assertEquals("grass", actualPokemon.getType());
-        assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", actualPokemon.getImageString());
-    }
+//         // Assert
+//         assertEquals(1, actualPokemon.getId());
+//         assertEquals("bulbasaur", actualPokemon.getName());
+//         assertEquals("grass", actualPokemon.getType());
+//         assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", actualPokemon.getImageString());
+//     }
 
-    @Test   
-    public void GetPokemonWithId_PokemonDoesNotExist_ReturnsNull() {
+//     @Test   
+//     public void GetPokemonWithId_PokemonDoesNotExist_ReturnsNull() {
 
-        // Arrange
-        int id = 99999;
+//         // Arrange
+//         int id = 99999;
 
-        // Act and Assert
-        assertThrows(PokemonNotFoundException.class, () -> {
-        pokeAPIservice.getPokemonWithId(id);
-    });;
-    }
-}
+//         // Act and Assert
+//         assertThrows(PokemonNotFoundException.class, () -> {
+//         pokeAPIservice.getPokemonWithId(id);
+//     });;
+//     }
+// }

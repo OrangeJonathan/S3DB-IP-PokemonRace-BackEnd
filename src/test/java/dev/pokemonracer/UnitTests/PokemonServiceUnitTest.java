@@ -1,7 +1,10 @@
 package dev.pokemonracer.UnitTests;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+import java.security.SecureRandom;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,10 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dev.pokemonracer.exceptions.PokemonApiException;
 import dev.pokemonracer.model.Generation;
 import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.repositoryInterfaces.IPokemonRepository;
@@ -27,6 +32,7 @@ class PokemonServiceUnitTest {
     @Mock
     private IGenerationService generationService;
 
+    @Spy
     @InjectMocks
     private PokeAPIservice pokeAPIservice;
 
@@ -50,6 +56,30 @@ class PokemonServiceUnitTest {
 
         // Assert
         assertTrue(randomPokemonId >= 1 && randomPokemonId <= 151);
+    }
+
+    @Test
+    public void testGenerateRandomPokemonId_WhileLoop() {
+        // Arrange
+        Generation generation = new Generation();
+        generation.setUpperLimit(151);
+        generation.setLowerLimit(1);
+
+        when(generationService.GetGeneration(anyLong())).thenReturn(generation);
+
+        Set<Integer> ids = new HashSet<>();
+        ids.add(150);
+        pokeAPIservice.setGeneratedPokemonIds(ids);
+
+        SecureRandom secureRandom = org.mockito.Mockito.mock(SecureRandom.class);
+        when(secureRandom.nextInt(anyInt())).thenReturn(150, 151);
+        pokeAPIservice.setSecureRandom(secureRandom);
+
+        // Act
+        int id = pokeAPIservice.generateRandomPokemonId(1);
+
+        // Assert
+        assertEquals(151, id);
     }
 
     @Test
@@ -97,4 +127,22 @@ class PokemonServiceUnitTest {
         assertEquals(0, pokeAPIservice.getMin());
         assertEquals(0, pokeAPIservice.getRange());
     }
+
+    @Test
+    public void testGetPokemonWithId_Exception() {
+        // Arrange
+        when(pokemonRepository.getPokemonWithId(anyInt())).thenThrow(new PokemonApiException("Pokemon not found"));
+
+        // Act & Assert
+        Exception exception = assertThrows(PokemonApiException.class, () -> {
+            pokeAPIservice.getPokemonWithId(1);
+        });
+
+        String expectedMessage = "Pokemon not found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    
 }

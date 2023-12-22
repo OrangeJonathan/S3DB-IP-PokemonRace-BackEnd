@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pokemonracer.DTOs.ChatMessageDTO;
+import dev.pokemonracer.dto.ChatMessageDTO;
 import dev.pokemonracer.mapper.ChatMapper;
 import dev.pokemonracer.model.ChatMessage;
 import dev.pokemonracer.serviceInterfaces.IChatService;
 import dev.pokemonracer.serviceInterfaces.IUserService;
+import lombok.Getter;
 
 @RestController
+@Getter
 @RequestMapping("api/chat")
 public class ChatController {
 
@@ -33,7 +35,7 @@ public class ChatController {
 
     @MessageMapping("/hello/{recipientId}")
     @SendTo("/topic/private/{recipientId}")
-    public ChatMessageDTO greeting(@DestinationVariable String recipientId, ChatMessageDTO message) throws Exception {
+    public ChatMessageDTO greeting(@DestinationVariable String recipientId, ChatMessageDTO message) throws InterruptedException {
         Thread.sleep(100); // simulated delay
         chatService.SaveChat(mapper.toChatMessage(message));
         return message;

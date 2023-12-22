@@ -37,36 +37,33 @@ jobs:
               java-version: '17'
           - name: Test
             run: mvn test
+            
 
     IntegrationTesting:
       name: Integration Testing
       needs: UnitTesting
       runs-on: ubuntu-latest
       permissions: read-all 
-      services:
-        mysql:
-          image: mysql:latest
-          env:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: integration_test_db
-            MYSQL_USER: test_user
-            MYSQL_PASSWORD: test_password
-          ports:
-            - 3306:3306
-  
       steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-  
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'corretto'
-          java-version: '17'
-       
-      - name: Test
-        run: mvn verify
+        - name: Checkout code
+          uses: actions/checkout@v2
 
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            distribution: 'corretto'
+            java-version: '17'
+
+        - name: Set up Docker
+          uses: docker-practice/actions-setup-docker@master
+          with:
+            docker_version: 20.10
+            docker_buildx: false
+
+        - name: Test
+          run: mvn -X verify
+          env:
+            TESTCONTAINERS_LOG_LEVEL: DEBUG
 
     SonarQube:
       name: SonarQube

@@ -1,6 +1,6 @@
 package dev.pokemonracer.mapper;
 
-import dev.pokemonracer.DTOs.ChatMessageDTO;
+import dev.pokemonracer.dto.ChatMessageDTO;
 import dev.pokemonracer.model.ChatMessage;
 import dev.pokemonracer.serviceInterfaces.IUserService;
 
@@ -21,7 +21,7 @@ public class ChatMapper {
     }
 
     public ChatMessage toChatMessage(ChatMessageDTO msgDTO) {
-        ChatMessage msg = new ChatMessage(userService.getUserByAuth0Id(msgDTO.getSender_id()), userService.getUserByAuth0Id(msgDTO.getRecipientId()), msgDTO.getContent(), msgDTO.getTimeSent());
+        ChatMessage msg = new ChatMessage(userService.getUserByAuth0Id(msgDTO.getSenderId()), userService.getUserByAuth0Id(msgDTO.getRecipientId()), msgDTO.getContent(), msgDTO.getTimeSent());
         return msg;
     }
 }

@@ -11,12 +11,12 @@ import dev.pokemonracer.exceptions.PokemonNotFoundException;
 public class ExceptionHandlerAdvice {
     
     @ExceptionHandler(PokemonApiException.class)
-    public ResponseEntity handleException(PokemonApiException e) {
+    public ResponseEntity<String> handleException(PokemonApiException e) {
         return ResponseEntity.status(500).body(e.getMessage());
     }
 
     @ExceptionHandler(PokemonNotFoundException.class)
-    public ResponseEntity handleException(PokemonNotFoundException e) {
+    public ResponseEntity<String> handleException(PokemonNotFoundException e) {
         return ResponseEntity.status(404).body(e.getMessage());
     }
 }

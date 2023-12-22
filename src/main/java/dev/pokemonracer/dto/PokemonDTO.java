@@ -1,4 +1,4 @@
-package dev.pokemonracer.DTOs;
+package dev.pokemonracer.dto;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

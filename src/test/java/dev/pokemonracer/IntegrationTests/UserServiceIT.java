@@ -1,43 +1,69 @@
 package dev.pokemonracer.IntegrationTests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.FriendRepository;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.UserService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+
+@Testcontainers
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 public class UserServiceIT {
-    private UserService userService;
-    private UserRepository userRepository;
-    private FriendRepository friendRepository;
 
+    @Container
+    public static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:5.7")
+            .withDatabaseName("pokemonracerTest")
+            .withUsername("root")
+            .withPassword("RooTPassworD1!")
+            .waitingFor(Wait.forHealthcheck())
+            .withStartupTimeout(Duration.ofSeconds(120));
 
     @Autowired
-    public UserServiceIT(UserService userService, UserRepository userRepository, FriendRepository friendRepository) {
-        this.userService = userService;
-        this.userRepository = userRepository;
-        this.friendRepository = friendRepository;
+    private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private FriendRepository friendRepository;
+
+    @DynamicPropertySource
+    static void setDataSourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
     }
 
-    @AfterEach
+    @BeforeEach
     public void tearDown() {
         friendRepository.deleteAll();
         userRepository.deleteAll();
     }
 
+    @AfterEach
+    public void printContainerLogs() {
+        String logs = mySQLContainer.getLogs();
+        System.out.println("MySQL Logs:");
+        System.out.println(logs);
+    }
+
     @Test
-    public void GetUserByAuth0Id_FindUser_ReturnsUser() {
+    void GetUserByAuth0Id_FindUser_ReturnsUser() {
         
         // Arrange
         User expectedUser = new User();
@@ -56,7 +82,7 @@ public class UserServiceIT {
     }
 
     @Test
-    public void GetUserByEmail_FindUser_ReturnsUser() {
+    void GetUserByEmail_FindUser_ReturnsUser() {
         
         // Arrange
         User expectedUser = new User();
@@ -75,7 +101,7 @@ public class UserServiceIT {
     }        
 
     @Test
-    public void GetUserById_FindUser_ReturnsUser() {
+    void GetUserById_FindUser_ReturnsUser() {
         
         // Arrange
         User expectedUser = new User();
@@ -94,7 +120,7 @@ public class UserServiceIT {
     }    
 
     @Test
-    public void CreateUser_UserDoesNotExist_UserCreated() {
+    void CreateUser_UserDoesNotExist_UserCreated() {
         
         // Arrange
         User user = new User();

@@ -1,10 +1,12 @@
 package dev.pokemonracer.mapper;
 
+import org.springframework.stereotype.Component;
 
-import dev.pokemonracer.DTOs.PokemonDTO;
+import dev.pokemonracer.dto.PokemonDTO;
 import dev.pokemonracer.model.Pokemon;
 import dev.pokemonracer.serviceInterfaces.IPokeAPIService;
 
+@Component
 public class PokemonMapper {
     
     IPokeAPIService pokeAPIService;
