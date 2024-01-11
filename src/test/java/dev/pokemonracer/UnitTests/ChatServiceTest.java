@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class ChatServiceTest {
+class ChatServiceTest {
 
     private ChatService chatService;
     private ChatMessageRepository chatMessageRepository;

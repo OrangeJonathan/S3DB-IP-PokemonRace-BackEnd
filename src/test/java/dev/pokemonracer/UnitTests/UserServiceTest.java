@@ -18,7 +18,7 @@ import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.UserService;
 
-public class UserServiceTest {
+class UserServiceTest {
 
     private UserService userService;
     private UserRepository userRepository;

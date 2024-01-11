@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class RaceServiceTest {
+class RaceServiceTest {
 
     @Mock
     private RaceRepository raceRepository;
@@ -37,7 +37,7 @@ public class RaceServiceTest {
     }
 
     @Test
-    public void testCreateRace() {
+    void testCreateRace() {
         // Arrange
         User player1 = new User();
         User player2 = new User();
@@ -62,7 +62,7 @@ public class RaceServiceTest {
     }
 
     @Test
-    public void testStartRace() {
+    void testStartRace() {
         // Arrange
         Race race = new Race();
         race.setStatus(PENDING);
@@ -76,7 +76,7 @@ public class RaceServiceTest {
     }
 
     @Test
-    public void testEndRace() {
+    void testEndRace() {
         // Arrange
         Race race = new Race();
         race.setStatus(IN_PROGRESS);
@@ -90,7 +90,7 @@ public class RaceServiceTest {
     }
 
     @Test
-    public void testGetPendingRaces() {
+    void testGetPendingRaces() {
         // Arrange
         User player = new User();
         Race race = new Race();
@@ -107,7 +107,7 @@ public class RaceServiceTest {
     }
 
     @Test
-    public void testGetCompletedRaces() {
+    void testGetCompletedRaces() {
         // Arrange
         User player = new User();
         Race race1 = new Race();
