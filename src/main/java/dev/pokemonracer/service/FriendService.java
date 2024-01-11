@@ -34,8 +34,9 @@ public class FriendService implements IFriendService {
     public void SendFriendRequest(String senderAuth0Id, String receiverEmail) {
         User sendUser = userService.getUserByAuth0Id(senderAuth0Id);
         User receiveUser = userService.getUserByEmail(receiverEmail);
-
+        
         if(getUserFriend(senderAuth0Id, receiveUser.getAuth0Id()) != null) return;
+        System.out.println(sendUser.getAuth0Id() + " " +  receiveUser.getAuth0Id());
 
         User_Friend userFriend = new User_Friend(sendUser, receiveUser, false);
         friendRepository.save(userFriend);

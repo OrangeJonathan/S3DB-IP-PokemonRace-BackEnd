@@ -18,7 +18,7 @@ import dev.pokemonracer.model.Generation;
 import dev.pokemonracer.repository.GenerationRepository;
 import dev.pokemonracer.service.GenerationService;
 
-public class GenerationServiceTest {
+class GenerationServiceTest {
 
     @Mock
     private GenerationRepository generationRepository;

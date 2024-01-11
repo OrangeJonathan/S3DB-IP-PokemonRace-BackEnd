@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FriendServiceTest {
+class FriendServiceTest {
 
     private FriendService friendService;
     private UserService userService;
