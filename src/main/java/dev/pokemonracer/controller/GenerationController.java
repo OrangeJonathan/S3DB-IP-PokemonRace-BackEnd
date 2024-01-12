@@ -30,7 +30,7 @@ public class GenerationController {
     @GetMapping("")
     public List<GenerationDTO> getAllGenerations(){
         List<Generation> generations = generationService.getAllGenerations();
-        List<GenerationDTO> generationDTOs = new ArrayList<GenerationDTO>();
+        List<GenerationDTO> generationDTOs = new ArrayList<>();
         for (Generation generation : generations) {
             generationDTOs.add(mapper.toDTO(generation));
         }

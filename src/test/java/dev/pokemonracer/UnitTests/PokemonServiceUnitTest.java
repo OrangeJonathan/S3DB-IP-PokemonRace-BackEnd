@@ -59,7 +59,7 @@ class PokemonServiceUnitTest {
     }
 
     @Test
-    public void testGenerateRandomPokemonId_WhileLoop() {
+    void testGenerateRandomPokemonId_WhileLoop() {
         // Arrange
         Generation generation = new Generation();
         generation.setUpperLimit(151);
@@ -129,7 +129,7 @@ class PokemonServiceUnitTest {
     }
 
     @Test
-    public void testGetPokemonWithId_Exception() {
+    void testGetPokemonWithId_Exception() {
         // Arrange
         when(pokemonRepository.getPokemonWithId(anyInt())).thenThrow(new PokemonApiException("Pokemon not found"));
 

@@ -18,14 +18,14 @@ public class GenerationService implements IGenerationService {
         this.generationRepository = generationRepository;
     }
 
-    public void insertGeneration(Long Id, int upperLimit, int lowerLimit) {
-        Generation generation = new Generation(Id, upperLimit, lowerLimit);
-        if (generationRepository.findById(Id).isPresent()) return;
+    public void insertGeneration(Long id, int upperLimit, int lowerLimit) {
+        Generation generation = new Generation(id, upperLimit, lowerLimit);
+        if (generationRepository.findById(id).isPresent()) return;
         generationRepository.save(generation);
     }
 
-    public Generation getGeneration(Long Id){
-        Optional<Generation> optionalGeneration = generationRepository.findById(Id);
+    public Generation getGeneration(Long id){
+        Optional<Generation> optionalGeneration = generationRepository.findById(id);
         if (optionalGeneration.isEmpty()) return null;
         return optionalGeneration.get();
     }
@@ -35,8 +35,8 @@ public class GenerationService implements IGenerationService {
         return generationRepository.findAll();
     }
 
-    public void updateGeneration(Long Id, int upperLimit, int lowerLimit) {
-        Generation generation = getGeneration(Id);
+    public void updateGeneration(Long id, int upperLimit, int lowerLimit) {
+        Generation generation = getGeneration(id);
         if (generation == null) return;
 
         generation.setLowerLimit(lowerLimit);

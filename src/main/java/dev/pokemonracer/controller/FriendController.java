@@ -33,7 +33,7 @@ public class FriendController {
     @GetMapping("")
     public List<UserDTO> getFriends(@RequestParam String auth0Id, @RequestParam Boolean accepted) {
         List<User> friendList;
-        if (accepted) friendList = friendService.getAcceptedFriendsByAuth0Id(auth0Id);
+        if (Boolean.TRUE.equals(accepted)) friendList = friendService.getAcceptedFriendsByAuth0Id(auth0Id);
         else friendList = friendService.getPendingFriendsByAuth0Id(auth0Id);
 
         List<UserDTO> friendDTOList = new ArrayList<>();

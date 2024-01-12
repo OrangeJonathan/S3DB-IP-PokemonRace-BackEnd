@@ -35,15 +35,14 @@ public class ChatService implements IChatService{
             if (senderId == null || recieverId == null ) throw new IllegalArgumentException("senderID or recieverID is null");
             List<ChatMessage> chats = chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(senderId), userService.getUserById(recieverId));
             chats.addAll(chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(recieverId), userService.getUserById(senderId)));
-            List<ChatMessage> sortedChats = SortListByTimeSent(chats);
+            return sortListByTimeSent(chats);
     
-            return sortedChats;
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private List<ChatMessage> SortListByTimeSent(List<ChatMessage> list) {
+    private List<ChatMessage> sortListByTimeSent(List<ChatMessage> list) {
         Collections.sort(list);
         return list;
     }

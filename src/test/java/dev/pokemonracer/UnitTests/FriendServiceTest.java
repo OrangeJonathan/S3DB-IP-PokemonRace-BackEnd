@@ -118,7 +118,7 @@ class FriendServiceTest {
 
         // Assert
         verify(friendRepository).save(any(User_Friend.class));
-        Assertions.assertEquals(userFriend.isAccepted(), true);
+        Assertions.assertEquals(true, userFriend.isAccepted());
     }
 
     @Test
@@ -199,7 +199,7 @@ class FriendServiceTest {
     }
 
     @Test
-    public void GetFriendsByAuth0Id_ForEveryUserFriend_ReturnFriends() {
+    void GetFriendsByAuth0Id_ForEveryUserFriend_ReturnFriends() {
         // Arrange
         User user = new User();
         user.setId(1L);
@@ -218,7 +218,7 @@ class FriendServiceTest {
     }
 
     @Test
-    public void GetFriendsByAuth0Id_IfUserId_UseFriendID() {
+    void GetFriendsByAuth0Id_IfUserId_UseFriendID() {
         // Arrange
         User user = new User();
         user.setId(1L);

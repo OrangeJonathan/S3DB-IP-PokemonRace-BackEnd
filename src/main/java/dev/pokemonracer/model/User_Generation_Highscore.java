@@ -27,8 +27,8 @@ public class User_Generation_Highscore {
 
     User_Generation_Highscore() {}
 
-    User_Generation_Highscore(User user_Id, Generation generationId, int highscore) {
-        this.userId = user_Id;
+    User_Generation_Highscore(User userId, Generation generationId, int highscore) {
+        this.userId = userId;
         this.generationId = generationId;
         this.highscore = highscore;
     }

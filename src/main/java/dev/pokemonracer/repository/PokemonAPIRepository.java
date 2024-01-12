@@ -16,7 +16,7 @@ import dev.pokemonracer.model.Pokemon;
 
 @Repository
 public class PokemonAPIRepository implements IPokemonRepository {
-    private static final String pokeAPI = "https://pokeapi.co/api/v2/pokemon/";
+    private static final String POKEAPI = "https://pokeapi.co/api/v2/pokemon/";
     private final RestTemplate restTemplate;
 
     public PokemonAPIRepository(RestTemplate restTemplate) {
@@ -25,7 +25,7 @@ public class PokemonAPIRepository implements IPokemonRepository {
 
     public Pokemon getPokemonWithId(int id) {
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(pokeAPI + id, String.class);
+            ResponseEntity<String> response = restTemplate.getForEntity(POKEAPI + id, String.class);
     
             if (response.getStatusCode().is2xxSuccessful()) {
                 ObjectMapper objectMapper = new ObjectMapper();
