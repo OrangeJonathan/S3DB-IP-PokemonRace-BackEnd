@@ -49,7 +49,7 @@ class PokemonServiceUnitTest {
         generation.setUpperLimit(151);
         generation.setLowerLimit(1);
 
-        when(generationService.GetGeneration(1L)).thenReturn(generation);
+        when(generationService.getGeneration(1L)).thenReturn(generation);
 
         // Act
         int randomPokemonId = pokeAPIservice.generateRandomPokemonId(1);
@@ -59,13 +59,13 @@ class PokemonServiceUnitTest {
     }
 
     @Test
-    public void testGenerateRandomPokemonId_WhileLoop() {
+    void testGenerateRandomPokemonId_WhileLoop() {
         // Arrange
         Generation generation = new Generation();
         generation.setUpperLimit(151);
         generation.setLowerLimit(1);
 
-        when(generationService.GetGeneration(anyLong())).thenReturn(generation);
+        when(generationService.getGeneration(anyLong())).thenReturn(generation);
 
         Set<Integer> ids = new HashSet<>();
         ids.add(150);
@@ -129,7 +129,7 @@ class PokemonServiceUnitTest {
     }
 
     @Test
-    public void testGetPokemonWithId_Exception() {
+    void testGetPokemonWithId_Exception() {
         // Arrange
         when(pokemonRepository.getPokemonWithId(anyInt())).thenThrow(new PokemonApiException("Pokemon not found"));
 

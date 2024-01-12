@@ -37,7 +37,7 @@ public class ChatController {
     @SendTo("/topic/private/{recipientId}")
     public ChatMessageDTO greeting(@DestinationVariable String recipientId, ChatMessageDTO message) throws InterruptedException {
         Thread.sleep(100); // simulated delay
-        chatService.SaveChat(mapper.toChatMessage(message));
+        chatService.saveChat(mapper.toChatMessage(message));
         return message;
     }
 
@@ -46,7 +46,7 @@ public class ChatController {
     @GetMapping("")
     public List<ChatMessageDTO> getMessages(@RequestParam String senderId,@RequestParam String receiverId) throws Exception{
         List<ChatMessageDTO> messages = new ArrayList<>();
-        List<ChatMessage> chats = chatService.GetChatsBySenderAndReciever(userService.getUserByAuth0Id(senderId).getId(), userService.getUserByAuth0Id(receiverId).getId());
+        List<ChatMessage> chats = chatService.getChatsBySenderAndReciever(userService.getUserByAuth0Id(senderId).getId(), userService.getUserByAuth0Id(receiverId).getId());
         for (ChatMessage chatMessage : chats) {
             messages.add(mapper.toChatMessageDTO(chatMessage));
         }

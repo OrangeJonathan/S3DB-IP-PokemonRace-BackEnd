@@ -16,12 +16,10 @@ public class PokemonMapper {
     }
 
     public PokemonDTO toPokemonDTO(Pokemon pokemon) {
-        PokemonDTO pokemonDTO = new PokemonDTO(pokemon.getId(), pokemon.getName(), pokemon.getImageString());
-        return pokemonDTO;
+        return new PokemonDTO(pokemon.getId(), pokemon.getName(), pokemon.getImageString());
     }
 
     public Pokemon toPokemon(PokemonDTO pokemonDTO) {
-        Pokemon pokemon = new Pokemon(pokemonDTO.getId(), pokemonDTO.getName(), pokemonDTO.getImageString());
-        return pokemon;
+        return new Pokemon(pokemonDTO.getId(), pokemonDTO.getName(), pokemonDTO.getImageString());
     }
 }

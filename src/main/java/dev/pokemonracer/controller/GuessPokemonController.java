@@ -42,9 +42,12 @@ public class GuessPokemonController {
     @GetMapping("/iscorrect/{name}")
     public boolean guessPokemon(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
         String pokemonName = pokemon.getName().toLowerCase();
+        if (name.toLowerCase().equals("nidoran-f") || name.toLowerCase().equals("nidoran-m"))
+        {
+            name = name.toLowerCase().replace("nidoran-f", "nidoran").replace("nidoran-m", "nidoran");
+        }
         name = name.toLowerCase().replace(" ", "-"); 
-    
-        return pokemonName.equals(name); 
+        return pokemonName.equals(name);
     }
 
     // Reset the PokeAPIService to be ready for a new game.
