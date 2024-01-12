@@ -36,7 +36,7 @@ public class PokeAPIservice implements IPokeAPIService {
     }
 
     private void setGeneration(int id) {
-        Generation generation = generationService.GetGeneration(Long.valueOf(id));
+        Generation generation = generationService.getGeneration(Long.valueOf(id));
         max = generation.getUpperLimit();
         min = generation.getLowerLimit();
         range = max - min;

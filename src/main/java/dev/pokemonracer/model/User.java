@@ -35,8 +35,8 @@ public class User {
 
     private boolean isOnline;
 
-    public User(String username, String auth0_Id) {
+    public User(String username, String auth0Id) {
         this.username = username;
-        this.auth0Id = auth0_Id;
+        this.auth0Id = auth0Id;
     }
 }

@@ -7,8 +7,8 @@ import dev.pokemonracer.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-    User findByAuth0Id(String auth0_Id);
+    User findByAuth0Id(String auth0Id);
 
-    User findUserByEmail(String receiver_email);
+    User findUserByEmail(String receiverEmail);
 
 }

@@ -40,7 +40,7 @@ class ChatServiceTest {
         when(chatMessageRepository.save(any(ChatMessage.class))).thenReturn(chatMessage);
 
         // Act
-        chatService.SaveChat(chatMessage);
+        chatService.saveChat(chatMessage);
 
         // Assert
         verify(chatMessageRepository, times(1)).save(chatMessage);
@@ -52,7 +52,7 @@ class ChatServiceTest {
         ChatMessage chatMessage = null;
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> chatService.SaveChat(chatMessage));
+        assertThrows(IllegalArgumentException.class, () -> chatService.saveChat(chatMessage));
     }
 
     @Test
@@ -74,7 +74,7 @@ class ChatServiceTest {
         when(chatMessageRepository.findBysenderIdAndRecepientId(receiver, sender)).thenReturn(new ArrayList<>(Arrays.asList(chat2)));
 
         // Act
-        List<ChatMessage> result = chatService.GetChatsBySenderAndReciever(sender.getId(), receiver.getId());
+        List<ChatMessage> result = chatService.getChatsBySenderAndReciever(sender.getId(), receiver.getId());
 
         // Assert
         assertEquals(2, result.size());
@@ -89,7 +89,7 @@ class ChatServiceTest {
         Long receiverId = 2L;
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> chatService.GetChatsBySenderAndReciever(senderId, receiverId));
+        assertThrows(IllegalArgumentException.class, () -> chatService.getChatsBySenderAndReciever(senderId, receiverId));
     }
 
     @Test
@@ -99,7 +99,7 @@ class ChatServiceTest {
         Long receiverId = null;
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> chatService.GetChatsBySenderAndReciever(senderId, receiverId));
+        assertThrows(IllegalArgumentException.class, () -> chatService.getChatsBySenderAndReciever(senderId, receiverId));
     }
 
     @Test
@@ -112,7 +112,7 @@ class ChatServiceTest {
         when(userService.getUserById(receiverId)).thenReturn(null);
 
         // Act
-        List<ChatMessage> result = chatService.GetChatsBySenderAndReciever(senderId, receiverId);
+        List<ChatMessage> result = chatService.getChatsBySenderAndReciever(senderId, receiverId);
 
         // Assert
         assertTrue(result.isEmpty());

@@ -26,14 +26,14 @@ public class Race {
     private User player1;
 
     @Column(name="Player1_Score")
-    private int player1_Score;
+    private int player1Score;
 
     @ManyToOne
     @JoinColumn(name="Player2")
     private User player2;
 
     @Column(name="Player2_Score")
-    private int player2_Score;
+    private int player2Score;
 
     @Column(name="Status")
     private RaceStatus status;

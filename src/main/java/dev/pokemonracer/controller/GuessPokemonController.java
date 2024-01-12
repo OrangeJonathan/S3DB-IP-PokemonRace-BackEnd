@@ -35,7 +35,6 @@ public class GuessPokemonController {
     public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
         return mapper.toPokemonDTO(pokemon);
-        
     }
 
     // Check if the user's guess is correct.

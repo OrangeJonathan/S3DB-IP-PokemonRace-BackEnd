@@ -27,7 +27,7 @@ public class RaceService {
         Race race = new Race();
         race.setPlayer1(player1);
         race.setPlayer2(player2);
-        race.setGeneration(generationService.GetGeneration(generationId));
+        race.setGeneration(generationService.getGeneration(generationId));
         race.setTimeLimit(timeLimit);
         race.setStatus(PENDING);
         raceRepository.save(race);

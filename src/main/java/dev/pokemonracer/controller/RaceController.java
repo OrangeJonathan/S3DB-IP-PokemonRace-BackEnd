@@ -13,7 +13,6 @@ public class RaceController {
 
     @GetMapping("")
     public RaceDTO getRaces(@RequestParam("player") String auth0Id, @RequestParam String status) {
-        
         return null;
     }
 

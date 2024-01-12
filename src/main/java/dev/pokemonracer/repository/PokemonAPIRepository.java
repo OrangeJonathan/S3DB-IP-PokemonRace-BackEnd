@@ -16,7 +16,7 @@ import dev.pokemonracer.model.Pokemon;
 
 @Repository
 public class PokemonAPIRepository implements IPokemonRepository {
-    private final String pokeAPI = "https://pokeapi.co/api/v2/pokemon/";
+    private static final String pokeAPI = "https://pokeapi.co/api/v2/pokemon/";
     private final RestTemplate restTemplate;
 
     public PokemonAPIRepository(RestTemplate restTemplate) {
@@ -42,10 +42,8 @@ public class PokemonAPIRepository implements IPokemonRepository {
                         ". HTTP Status Code: " + response.getStatusCode());
             }
         } catch (JsonProcessingException e) {
-            // Handle JSON parsing errors
             throw new PokemonApiException("Failed to parse JSON response for Pokemon with ID: " + id, e);
         } catch (HttpClientErrorException ex) {
-            // Handle HTTP client errors (4xx and 5xx)
             if (ex.getStatusCode().value() == 404) {
                 throw new PokemonNotFoundException("Pokemon with ID: " + id + " does not exist", ex);
             }

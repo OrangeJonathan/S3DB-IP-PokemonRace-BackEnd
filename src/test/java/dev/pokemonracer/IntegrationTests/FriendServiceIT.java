@@ -83,7 +83,7 @@ public class FriendServiceIT {
         friendRepository.save(userFriend1);
 
         // Act
-        List<User> actualFriends = friendService.GetAcceptedFriendsByAuth0Id(friend1.getAuth0Id());
+        List<User> actualFriends = friendService.getAcceptedFriendsByAuth0Id(friend1.getAuth0Id());
     
         // Assert
         assertEquals(1, actualFriends.size());
