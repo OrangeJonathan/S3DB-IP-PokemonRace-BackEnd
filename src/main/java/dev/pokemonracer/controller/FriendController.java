@@ -45,7 +45,7 @@ public class FriendController {
     
     @PostMapping("")
     public void sendFriendRequest(@RequestParam("senderAuth0Id") String senderAuth0Id, @RequestParam("receiverEmail") String receiverEmail) {
-        friendService.SendFriendRequest(senderAuth0Id, receiverEmail);
+        friendService.sendFriendRequest(senderAuth0Id, receiverEmail);
     }
 
     @PutMapping("")

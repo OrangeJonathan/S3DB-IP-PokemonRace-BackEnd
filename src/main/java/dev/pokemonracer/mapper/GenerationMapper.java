@@ -7,10 +7,10 @@ import dev.pokemonracer.model.Generation;
 
 @Component
 public class GenerationMapper {
-    public Generation ToEntity(GenerationDTO generationDTO){
+    public Generation toEntity(GenerationDTO generationDTO){
         return new Generation(generationDTO.getId(), generationDTO.getLowerLimit(), generationDTO.getUpperLimit());
     }
-    public GenerationDTO ToDTO(Generation generation){
+    public GenerationDTO toDTO(Generation generation){
         return new GenerationDTO(generation.getId(), generation.getLowerLimit(), generation.getUpperLimit());
     }
 }

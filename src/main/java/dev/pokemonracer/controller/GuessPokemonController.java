@@ -40,9 +40,9 @@ public class GuessPokemonController {
 
     // Check if the user's guess is correct.
     @GetMapping("/iscorrect/{name}")
-    public boolean guessPokemon(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
+    public boolean guessPokemon(@PathVariable String name) throws JsonProcessingException {
         String pokemonName = pokemon.getName().toLowerCase();
-        if (name.toLowerCase().equals("nidoran-f") || name.toLowerCase().equals("nidoran-m"))
+        if (name.equalsIgnoreCase("nidoran-f") || name.equalsIgnoreCase("nidoran-m"))
         {
             name = name.toLowerCase().replace("nidoran-f", "nidoran").replace("nidoran-m", "nidoran");
         }

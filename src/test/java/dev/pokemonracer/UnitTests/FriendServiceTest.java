@@ -2,7 +2,7 @@ package dev.pokemonracer.UnitTests;
 
 import dev.pokemonracer.model.FriendID;
 import dev.pokemonracer.model.User;
-import dev.pokemonracer.model.User_Friend;
+import dev.pokemonracer.model.UserFriend;
 import dev.pokemonracer.repository.FriendRepository;
 import dev.pokemonracer.repository.UserRepository;
 import dev.pokemonracer.service.FriendService;
@@ -80,10 +80,10 @@ class FriendServiceTest {
         when(friendService.getUserFriend(sender_auth0Id, receiver.getAuth0Id())).thenReturn(null);
 
         // Act
-        friendService.SendFriendRequest(sender_auth0Id, receiver_email);
+        friendService.sendFriendRequest(sender_auth0Id, receiver_email);
 
         // Assert
-        verify(friendRepository).save(any(User_Friend.class));
+        verify(friendRepository).save(any(UserFriend.class));
     }   
 
     @Test
@@ -93,13 +93,13 @@ class FriendServiceTest {
         String receiver_email = "valid_receiver_email";
         User sender = new User();
         User receiver = new User();
-        User_Friend userFriend = new User_Friend();
+        UserFriend userFriend = new UserFriend();
         when(userService.getUserByAuth0Id(sender_auth0Id)).thenReturn(sender);
         when(userService.getUserByEmail(receiver_email)).thenReturn(receiver);
         when(friendService.getUserFriend(sender_auth0Id, receiver.getAuth0Id())).thenReturn(userFriend);
 
         // Act
-        friendService.SendFriendRequest(sender_auth0Id, receiver_email);
+        friendService.sendFriendRequest(sender_auth0Id, receiver_email);
 
         // Assert
         verify(friendRepository, never()).save(userFriend);
@@ -110,14 +110,14 @@ class FriendServiceTest {
         // Arrange
         String sender_auth0Id = "valid_sender_auth0Id";
         String receiver_auth0Id = "valid_receiver_auth0Id";
-        User_Friend userFriend = new User_Friend();
+        UserFriend userFriend = new UserFriend();
         when(friendService.getUserFriend(sender_auth0Id, receiver_auth0Id)).thenReturn(userFriend);
 
         // Act
         friendService.acceptFriendRequest(sender_auth0Id, receiver_auth0Id);
 
         // Assert
-        verify(friendRepository).save(any(User_Friend.class));
+        verify(friendRepository).save(any(UserFriend.class));
         Assertions.assertEquals(true, userFriend.isAccepted());
     }
 
@@ -132,7 +132,7 @@ class FriendServiceTest {
         friendService.acceptFriendRequest(sender_auth0Id, receiver_auth0Id);
 
         // Assert
-        verify(friendRepository, never()).save(any(User_Friend.class));
+        verify(friendRepository, never()).save(any(UserFriend.class));
     }
 
     @Test
@@ -140,14 +140,14 @@ class FriendServiceTest {
         // Arrange
         String sender_auth0Id = "valid_sender_auth0Id";
         String receiver_auth0Id = "valid_receiver_auth0Id";
-        User_Friend userFriend = new User_Friend();
+        UserFriend userFriend = new UserFriend();
         when(friendService.getUserFriend(sender_auth0Id, receiver_auth0Id)).thenReturn(userFriend);
 
         // Act
         friendService.deleteFriend(sender_auth0Id, receiver_auth0Id);
 
         // Assert
-        verify(friendRepository).delete(any(User_Friend.class));
+        verify(friendRepository).delete(any(UserFriend.class));
     }
 
     @Test
@@ -161,7 +161,7 @@ class FriendServiceTest {
         friendService.deleteFriend(sender_auth0Id, receiver_auth0Id);
 
         // Assert
-        verify(friendRepository, never()).delete(any(User_Friend.class));
+        verify(friendRepository, never()).delete(any(UserFriend.class));
     }
 
     @Test
@@ -171,13 +171,13 @@ class FriendServiceTest {
         String receiver_auth0Id = "valid_receiver_auth0Id";
         User sender = new User();
         User receiver = new User();
-        User_Friend userFriend = new User_Friend();
+        UserFriend userFriend = new UserFriend();
         when(userService.getUserByAuth0Id(sender_auth0Id)).thenReturn(sender);
         when(userService.getUserByAuth0Id(receiver_auth0Id)).thenReturn(receiver);
         when(friendRepository.findByIdUserAndIdFriend(sender, receiver)).thenReturn(userFriend);
 
         // Act
-        User_Friend result = friendService.getUserFriend(sender_auth0Id, receiver_auth0Id);
+        UserFriend result = friendService.getUserFriend(sender_auth0Id, receiver_auth0Id);
 
         // Assert
         assertEquals(userFriend, result);
@@ -205,7 +205,7 @@ class FriendServiceTest {
         user.setId(1L);
         User friendUser = new User();
         friendUser.setId(2L);
-        User_Friend userFriend = new User_Friend(user, friendUser, true);
+        UserFriend userFriend = new UserFriend(user, friendUser, true);
         when(userService.getUserByAuth0Id(any())).thenReturn(user);
         when(friendRepository.findByIdFriendAndIsAccepted(any(), anyBoolean())).thenReturn(Arrays.asList(userFriend));
 
@@ -224,7 +224,7 @@ class FriendServiceTest {
         user.setId(1L);
         User friendUser = new User();
         friendUser.setId(2L);
-        User_Friend userFriend = new User_Friend(user, friendUser, true);
+        UserFriend userFriend = new UserFriend(user, friendUser, true);
         when(userService.getUserByAuth0Id(any())).thenReturn(user);
         when(friendRepository.findByIdFriendAndIsAccepted(any(), anyBoolean())).thenReturn(Arrays.asList(userFriend));
 

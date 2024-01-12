@@ -16,7 +16,7 @@ import dev.pokemonracer.model.Pokemon;
 
 @Repository
 public class PokemonAPIRepository implements IPokemonRepository {
-    private final String pokeAPI = "https://pokeapi.co/api/v2/pokemon/";
+    private static final String pokeAPI = "https://pokeapi.co/api/v2/pokemon/";
     private final RestTemplate restTemplate;
 
     public PokemonAPIRepository(RestTemplate restTemplate) {

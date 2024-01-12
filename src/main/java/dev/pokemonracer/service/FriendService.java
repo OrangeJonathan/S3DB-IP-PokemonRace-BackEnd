@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import dev.pokemonracer.model.User;
-import dev.pokemonracer.model.User_Friend;
+import dev.pokemonracer.model.UserFriend;
 import dev.pokemonracer.repository.FriendRepository;
 import dev.pokemonracer.serviceInterfaces.IFriendService;
 import dev.pokemonracer.serviceInterfaces.IUserService;
@@ -31,18 +31,18 @@ public class FriendService implements IFriendService {
         return getFriendsByAuth0Id(auth0Id, accepted);
     }
 
-    public void SendFriendRequest(String senderAuth0Id, String receiverEmail) {
+    public void sendFriendRequest(String senderAuth0Id, String receiverEmail) {
         User sendUser = userService.getUserByAuth0Id(senderAuth0Id);
         User receiveUser = userService.getUserByEmail(receiverEmail);
         
         if(getUserFriend(senderAuth0Id, receiveUser.getAuth0Id()) != null) return;
 
-        User_Friend userFriend = new User_Friend(sendUser, receiveUser, false);
+        UserFriend userFriend = new UserFriend(sendUser, receiveUser, false);
         friendRepository.save(userFriend);
     }
 
-    public User_Friend acceptFriendRequest(String senderAuth0Id, String receiverEmail) {
-        User_Friend userFriend = getUserFriend(senderAuth0Id, receiverEmail);
+    public UserFriend acceptFriendRequest(String senderAuth0Id, String receiverEmail) {
+        UserFriend userFriend = getUserFriend(senderAuth0Id, receiverEmail);
         if(getUserFriend(senderAuth0Id, receiverEmail) == null) return null;
 
         userFriend.setAccepted(true);
@@ -51,16 +51,16 @@ public class FriendService implements IFriendService {
     }
 
     public void deleteFriend(String senderAuth0Id, String receiverEmail) {
-        User_Friend userFriend = getUserFriend(senderAuth0Id, receiverEmail);
+        UserFriend userFriend = getUserFriend(senderAuth0Id, receiverEmail);
         if(getUserFriend(senderAuth0Id, receiverEmail) == null) return;
 
         friendRepository.delete(userFriend);
     }
 
-    public User_Friend getUserFriend(String senderAuth0Id, String receiverEmail) {
+    public UserFriend getUserFriend(String senderAuth0Id, String receiverEmail) {
         User sender = userService.getUserByAuth0Id(senderAuth0Id);
         User receiver = userService.getUserByAuth0Id(receiverEmail);
-        User_Friend userFriend = friendRepository.findByIdUserAndIdFriend(sender, receiver);
+        UserFriend userFriend = friendRepository.findByIdUserAndIdFriend(sender, receiver);
         if (userFriend == null) userFriend = friendRepository.findByIdUserAndIdFriend(receiver, sender);
         return userFriend;
     }
@@ -69,11 +69,11 @@ public class FriendService implements IFriendService {
         User user = userService.getUserByAuth0Id(auth0Id);
         Long userId = user.getId();
         
-        List<User_Friend> userFriends = friendRepository.findByIdFriendAndIsAccepted(user, accepted);
+        List<UserFriend> userFriends = friendRepository.findByIdFriendAndIsAccepted(user, accepted);
         if (Boolean.TRUE.equals(accepted)) userFriends.addAll(friendRepository.findByIdUserAndIsAccepted(user, accepted));
         List<User> friendList = new ArrayList<>();
     
-        for (User_Friend userFriend : userFriends) {
+        for (UserFriend userFriend : userFriends) {
             User friendUser = userFriend.getId().getFriend();
             if (friendUser.getId().equals(userId)) friendUser = userFriend.getId().getUser();
             User friend = (friendUser.getId() != userId) ? friendUser : user;

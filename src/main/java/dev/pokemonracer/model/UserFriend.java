@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name="user_friend")
-public class User_Friend {
+public class UserFriend {
     
     @EmbeddedId
     private FriendID id;
@@ -23,8 +23,8 @@ public class User_Friend {
     @Column(name="IsAccepted", nullable = false)
     private boolean isAccepted;
 
-    public User_Friend(User user_Id, User friend_Id, boolean isAccepted) {
-        this.id = new FriendID(user_Id, friend_Id);
+    public UserFriend(User userId, User friendId, boolean isAccepted) {
+        this.id = new FriendID(userId, friendId);
         this.isAccepted = isAccepted;
     }
 }

@@ -32,7 +32,7 @@ public class GenerationController {
         List<Generation> generations = generationService.getAllGenerations();
         List<GenerationDTO> generationDTOs = new ArrayList<>();
         for (Generation generation : generations) {
-            generationDTOs.add(mapper.ToDTO(generation));
+            generationDTOs.add(mapper.toDTO(generation));
         }
         return generationDTOs;
     }
@@ -40,7 +40,7 @@ public class GenerationController {
     @GetMapping("/{Id}")
     public GenerationDTO getSpecificGeneration(Long id) {
         Generation generation = generationService.getGeneration(id);
-        return mapper.ToDTO(generation);
+        return mapper.toDTO(generation);
     }
 
     @PostMapping("")
