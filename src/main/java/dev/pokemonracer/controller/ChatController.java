@@ -41,8 +41,6 @@ public class ChatController {
         return message;
     }
 
-
-
     @GetMapping("")
     public List<ChatMessageDTO> getMessages(@RequestParam String senderId,@RequestParam String receiverId) throws Exception{
         List<ChatMessageDTO> messages = new ArrayList<>();

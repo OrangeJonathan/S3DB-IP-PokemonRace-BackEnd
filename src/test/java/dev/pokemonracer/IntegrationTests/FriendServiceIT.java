@@ -56,7 +56,7 @@ public class FriendServiceIT {
     public void tearDown() {
         friendRepository.deleteAll();
         userRepository.deleteAll();
-    }
+    }   
 
     @AfterEach
     public void printContainerLogs() {
