@@ -4,6 +4,7 @@ package dev.pokemonracer.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import static dev.pokemonracer.model.RaceStatus.*;
@@ -11,19 +12,22 @@ import dev.pokemonracer.model.Race;
 import dev.pokemonracer.model.User;
 import dev.pokemonracer.repository.RaceRepository;
 import dev.pokemonracer.serviceInterfaces.IGenerationService;
+import dev.pokemonracer.serviceInterfaces.IRaceService;
 
 @Service
-public class RaceService {
+public class RaceService implements IRaceService {
 
     private RaceRepository raceRepository;
     private IGenerationService generationService;
-    
-    public RaceService(IGenerationService generationService, RaceRepository raceRepository) {
+    private final SimpMessagingTemplate messagingTemplate;
+
+    public RaceService(IGenerationService generationService, RaceRepository raceRepository, SimpMessagingTemplate messagingTemplate) {
         this.generationService = generationService;
         this.raceRepository = raceRepository;
+        this.messagingTemplate = messagingTemplate;
     }
 
-    public Race createRace(User player1, User player2, long generationId, java.util.Date timeLimit) {
+    public Race createRace(User player1, User player2, long generationId, long timeLimit) {
         Race race = new Race();
         race.setPlayer1(player1);
         race.setPlayer2(player2);
@@ -35,10 +39,31 @@ public class RaceService {
         return race;
     }
 
+    public void acceptInvitation(Race race, User player2) {
+        System.out.println("Accepting invitation " + race.getPlayer2().getId().equals(player2.getId()));
+        if (race.getStatus() != PENDING || !race.getPlayer2().getId().equals(player2.getId())) return;
+        
+        // Start the race
+        System.out.println("Race Starting");
+        startRace(race);
+    }
+
     public void startRace(Race race) {
         if (race.getStatus() != PENDING) return;
         race.setStatus(IN_PROGRESS);
         raceRepository.save(race);
+
+        // Send a countdown message to the clients
+        for (int i = 4; i >= 0; i--) {
+            messagingTemplate.convertAndSend("/topic/countdown", i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        messagingTemplate.convertAndSend("/topic/start", "Game started!");
     }
 
     public void endRace(Race race) { 
@@ -46,6 +71,7 @@ public class RaceService {
         race.setStatus(COMPLETED);
         raceRepository.save(race);
     }
+    
 
     public List<Race> getPendingRaces(User player) {
         return raceRepository.findByPlayer2AndStatus(player, PENDING);

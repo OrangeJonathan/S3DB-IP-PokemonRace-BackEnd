@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -28,6 +29,9 @@ class RaceServiceTest {
     @Mock
     private IGenerationService generationService;
 
+    @Mock
+    private SimpMessagingTemplate messagingTemplate;
+
     @InjectMocks
     private RaceService raceService;
 
@@ -42,7 +46,7 @@ class RaceServiceTest {
         User player1 = new User();
         User player2 = new User();
         long generationId = 1L;
-        Date timeLimit = new Date();
+        long timeLimit = 1000L;
 
         Race race = new Race();
         race.setPlayer1(player1);

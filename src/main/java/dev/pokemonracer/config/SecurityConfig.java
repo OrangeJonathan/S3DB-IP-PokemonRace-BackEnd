@@ -16,8 +16,6 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/friends").authenticated()
-                .requestMatchers("/api/chat").authenticated()
                 .anyRequest().permitAll()
             )
             .cors(withDefaults())
