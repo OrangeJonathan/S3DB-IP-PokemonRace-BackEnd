@@ -8,8 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Entity
@@ -26,14 +24,14 @@ public class Race {
     private User player1;
 
     @Column(name="Player1_Score")
-    private int player1_Score;
+    private int player1Score;
 
     @ManyToOne
     @JoinColumn(name="Player2")
     private User player2;
 
     @Column(name="Player2_Score")
-    private int player2_Score;
+    private int player2Score;
 
     @Column(name="Status")
     private RaceStatus status;
@@ -42,7 +40,6 @@ public class Race {
     @JoinColumn(name="Generation")
     private Generation generation;
 
-    @Temporal(TemporalType.TIME)
     @Column(name="TimeLimit")
-    private java.util.Date timeLimit;
+    private long timeLimit;
 }

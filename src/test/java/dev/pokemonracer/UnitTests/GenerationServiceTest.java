@@ -43,7 +43,7 @@ class GenerationServiceTest {
 
         
         // Act
-        generationService.InsertGeneration(id, upperLimit, lowerLimit);
+        generationService.insertGeneration(id, upperLimit, lowerLimit);
 
         // Assert
         verify(generationRepository, times(1)).save(any(Generation.class));
@@ -61,7 +61,7 @@ class GenerationServiceTest {
         when(generationRepository.findById(id)).thenReturn(Optional.of(new Generation()));
         
         // Act
-        generationService.InsertGeneration(id, upperLimit, lowerLimit);
+        generationService.insertGeneration(id, upperLimit, lowerLimit);
         
         // Assert
         verify(generationRepository, never()).save(any(Generation.class));
@@ -77,7 +77,7 @@ class GenerationServiceTest {
         when(generationRepository.findById(id)).thenReturn(Optional.of(expectedGeneration));
 
         // Act
-        Generation result = generationService.GetGeneration(id);
+        Generation result = generationService.getGeneration(id);
 
         // Assert
         assertEquals(expectedGeneration, result);
@@ -92,7 +92,7 @@ class GenerationServiceTest {
         when(generationRepository.findById(id)).thenReturn(Optional.empty());
 
         // Act
-        Generation result = generationService.GetGeneration(id);
+        Generation result = generationService.getGeneration(id);
 
         // Assert
         assertEquals(null, result);
@@ -107,7 +107,7 @@ class GenerationServiceTest {
         when(generationRepository.findAll()).thenReturn(expectedGenerations);
 
         // Act
-        List<Generation> result = generationService.GetAllGenerations();
+        List<Generation> result = generationService.getAllGenerations();
 
         // Assert
         assertEquals(expectedGenerations, result);
@@ -126,7 +126,7 @@ class GenerationServiceTest {
         when(generationRepository.findById(id)).thenReturn(Optional.of(existingGeneration));
 
         // Act
-        generationService.UpdateGeneration(id, upperLimit, lowerLimit);
+        generationService.updateGeneration(id, upperLimit, lowerLimit);
 
         // Assert
         verify(generationRepository, times(1)).save(any(Generation.class));
@@ -146,7 +146,7 @@ class GenerationServiceTest {
         when(generationRepository.findById(id)).thenReturn(Optional.empty());
 
         // Act
-        generationService.UpdateGeneration(id, upperLimit, lowerLimit);
+        generationService.updateGeneration(id, upperLimit, lowerLimit);
 
         // Assert
         verify(generationRepository, never()).save(any(Generation.class));

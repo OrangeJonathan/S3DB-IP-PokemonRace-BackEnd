@@ -16,13 +16,11 @@ public class ChatMapper {
     }
 
     public ChatMessageDTO toChatMessageDTO(ChatMessage msg) {
-        ChatMessageDTO msgDTO = new ChatMessageDTO(msg.getMessage(), userService.getUserById(msg.getSenderId().getId()).getAuth0Id(), userService.getUserById(msg.getRecepientId().getId()).getAuth0Id(), msg.getTimeSent());
-        return msgDTO;
+        return new ChatMessageDTO(msg.getMessage(), userService.getUserById(msg.getSenderId().getId()).getAuth0Id(), userService.getUserById(msg.getRecepientId().getId()).getAuth0Id(), msg.getTimeSent());
     }
 
     public ChatMessage toChatMessage(ChatMessageDTO msgDTO) {
-        ChatMessage msg = new ChatMessage(userService.getUserByAuth0Id(msgDTO.getSenderId()), userService.getUserByAuth0Id(msgDTO.getRecipientId()), msgDTO.getContent(), msgDTO.getTimeSent());
-        return msg;
+        return new ChatMessage(userService.getUserByAuth0Id(msgDTO.getSenderId()), userService.getUserByAuth0Id(msgDTO.getRecipientId()), msgDTO.getContent(), msgDTO.getTimeSent());
     }
 }
     

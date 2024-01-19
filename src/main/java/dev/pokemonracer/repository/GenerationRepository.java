@@ -9,5 +9,5 @@ import dev.pokemonracer.model.Generation;
 
 @Repository
 public interface GenerationRepository extends JpaRepository<Generation, Long>{
-    Optional<Generation> findById(Long Id);
+    Optional<Generation> findById(Long id);
 }

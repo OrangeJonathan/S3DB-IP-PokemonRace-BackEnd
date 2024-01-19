@@ -28,29 +28,28 @@ public class GenerationController {
     }
 
     @GetMapping("")
-    public List<GenerationDTO> GetAllGenerations(){
-        List<Generation> generations = generationService.GetAllGenerations();
-        List<GenerationDTO> generationDTOs = new ArrayList<GenerationDTO>();
+    public List<GenerationDTO> getAllGenerations(){
+        List<Generation> generations = generationService.getAllGenerations();
+        List<GenerationDTO> generationDTOs = new ArrayList<>();
         for (Generation generation : generations) {
-            generationDTOs.add(mapper.ToDTO(generation));
+            generationDTOs.add(mapper.toDTO(generation));
         }
         return generationDTOs;
     }
 
     @GetMapping("/{Id}")
-    public GenerationDTO GetSpecificGeneration(Long Id) {
-        Generation generation = generationService.GetGeneration(Id);
-        GenerationDTO generationDTO = mapper.ToDTO(generation);
-        return generationDTO;
+    public GenerationDTO getSpecificGeneration(Long id) {
+        Generation generation = generationService.getGeneration(id);
+        return mapper.toDTO(generation);
     }
 
     @PostMapping("")
-    public void InsertGeneration(@RequestParam Long Id, @RequestParam int lowerLimit, @RequestParam int upperLimit) {
-        generationService.InsertGeneration(Id, upperLimit, lowerLimit);
+    public void insertGeneration(@RequestParam Long id, @RequestParam int lowerLimit, @RequestParam int upperLimit) {
+        generationService.insertGeneration(id, upperLimit, lowerLimit);
     }
 
     @PutMapping("")
-    public void UpdateGeneration(@RequestParam Long Id, @RequestParam int lowerLimit, @RequestParam int upperLimit) {
-        generationService.UpdateGeneration(Id, upperLimit, lowerLimit);
+    public void updateGeneration(@RequestParam Long id, @RequestParam int lowerLimit, @RequestParam int upperLimit) {
+        generationService.updateGeneration(id, upperLimit, lowerLimit);
     }
 }

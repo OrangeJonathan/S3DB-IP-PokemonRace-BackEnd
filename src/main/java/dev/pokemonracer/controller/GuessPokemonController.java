@@ -35,12 +35,11 @@ public class GuessPokemonController {
     public PokemonDTO getRandomPokemon(@RequestParam("generation") int generation) {
         pokemon = pokeAPIservice.getPokemonWithId(pokeAPIservice.generateRandomPokemonId(generation));
         return mapper.toPokemonDTO(pokemon);
-        
     }
 
     // Check if the user's guess is correct.
     @GetMapping("/iscorrect/{name}")
-    public boolean guessPokemon(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
+    public boolean guessPokemon(@PathVariable String name) throws JsonProcessingException {
         String pokemonName = pokemon.getName().toLowerCase();
         name = name.toLowerCase().replace(" ", "-"); 
     

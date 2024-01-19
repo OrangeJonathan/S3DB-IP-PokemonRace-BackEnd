@@ -45,9 +45,9 @@ public class ChatMessage implements Comparable<ChatMessage>{
     @Column(name="TimeSent", nullable = false)
     private java.util.Date timeSent;
 
-    public ChatMessage(User sender_Id, User recepient_Id, String message, java.util.Date timeSent) {
-        this.senderId = sender_Id;
-        this.recepientId = recepient_Id;
+    public ChatMessage(User senderId, User recepientId, String message, java.util.Date timeSent) {
+        this.senderId = senderId;
+        this.recepientId = recepientId;
         this.message = message;
         this.timeSent = timeSent;
     }

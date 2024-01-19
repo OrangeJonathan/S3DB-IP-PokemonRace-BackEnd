@@ -10,5 +10,5 @@ import dev.pokemonracer.model.User;
 
 @Repository
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long>{
-    List<ChatMessage> findBysenderIdAndRecepientId(User sender_Id, User recepient_Id);
+    List<ChatMessage> findBysenderIdAndRecepientId(User senderId, User recepientId);
 }

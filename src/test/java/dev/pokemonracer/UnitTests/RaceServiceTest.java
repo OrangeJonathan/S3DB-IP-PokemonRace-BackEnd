@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -28,6 +29,9 @@ class RaceServiceTest {
     @Mock
     private IGenerationService generationService;
 
+    @Mock
+    private SimpMessagingTemplate messagingTemplate;
+
     @InjectMocks
     private RaceService raceService;
 
@@ -42,19 +46,19 @@ class RaceServiceTest {
         User player1 = new User();
         User player2 = new User();
         long generationId = 1L;
-        Date timeLimit = new Date();
+        long timeLimit = 1000L;
 
         Race race = new Race();
         race.setPlayer1(player1);
         race.setPlayer2(player2);
-        race.setGeneration(generationService.GetGeneration(generationId));
+        race.setGeneration(generationService.getGeneration(generationId));
         race.setTimeLimit(timeLimit);
         race.setStatus(PENDING);
 
         when(raceRepository.save(any(Race.class))).thenReturn(race);
 
         // Act
-        Race result = raceService.CreateRace(player1, player2, generationId, timeLimit);
+        Race result = raceService.createRace(player1, player2, generationId, timeLimit);
 
         // Assert
         assertEquals(race, result);
@@ -68,7 +72,7 @@ class RaceServiceTest {
         race.setStatus(PENDING);
 
         // Act
-        raceService.StartRace(race);
+        raceService.startRace(race);
 
         // Assert
         assertEquals(IN_PROGRESS, race.getStatus());
@@ -82,7 +86,7 @@ class RaceServiceTest {
         race.setStatus(IN_PROGRESS);
 
         // Act
-        raceService.EndRace(race);
+        raceService.endRace(race);
 
         // Assert
         assertEquals(COMPLETED, race.getStatus());
@@ -99,7 +103,7 @@ class RaceServiceTest {
         when(raceRepository.findByPlayer2AndStatus(player, PENDING)).thenReturn(Arrays.asList(race));
 
         // Act
-        List<Race> result = raceService.GetPendingRaces(player);
+        List<Race> result = raceService.getPendingRaces(player);
 
         // Assert
         assertEquals(1, result.size());
@@ -119,7 +123,7 @@ class RaceServiceTest {
         when(raceRepository.findByPlayer2AndStatus(player, COMPLETED)).thenReturn(Arrays.asList(race2));
 
         // Act
-        List<Race> result = raceService.GetCompletedRaces(player);
+        List<Race> result = raceService.getCompletedRaces(player);
 
         // Assert
         assertEquals(2, result.size());

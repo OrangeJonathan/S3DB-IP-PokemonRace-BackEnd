@@ -16,14 +16,13 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/friends").authenticated()
-                .requestMatchers("/api/chat").authenticated()
-                .requestMatchers("/api/messages").hasRole("ADMIN")
                 .anyRequest().permitAll()
             )
             .cors(withDefaults())
-                .oauth2ResourceServer(oauth2 -> oauth2
-                    .jwt(withDefaults())
+            .oauth2ResourceServer(oauth2 -> oauth2
+                    .jwt(jwt -> jwt
+                        .jwkSetUri("https://pokemonracer.eu.auth0.com/.well-known/jwks.json")
+                    )
                 )   
             .csrf(AbstractHttpConfigurer::disable);
         return http.build();

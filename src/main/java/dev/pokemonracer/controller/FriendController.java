@@ -31,10 +31,10 @@ public class FriendController {
     }
 
     @GetMapping("")
-    public List<UserDTO> GetFriends(@RequestParam String auth0Id, @RequestParam Boolean accepted) {
+    public List<UserDTO> getFriends(@RequestParam String auth0Id, @RequestParam Boolean accepted) {
         List<User> friendList;
-        if (accepted) friendList = friendService.GetAcceptedFriendsByAuth0Id(auth0Id);
-        else friendList = friendService.GetPendingFriendsByAuth0Id(auth0Id);
+        if (Boolean.TRUE.equals(accepted)) friendList = friendService.getAcceptedFriendsByAuth0Id(auth0Id);
+        else friendList = friendService.getPendingFriendsByAuth0Id(auth0Id);
 
         List<UserDTO> friendDTOList = new ArrayList<>();
         for (User user : friendList) {
@@ -44,18 +44,18 @@ public class FriendController {
     }
     
     @PostMapping("")
-    public void SendFriendRequest(@RequestParam("senderAuth0Id") String senderAuth0Id, @RequestParam("receiverEmail") String receiverEmail) {
-        friendService.SendFriendRequest(senderAuth0Id, receiverEmail);
+    public void sendFriendRequest(@RequestParam("senderAuth0Id") String senderAuth0Id, @RequestParam("receiverEmail") String receiverEmail) {
+        friendService.sendFriendRequest(senderAuth0Id, receiverEmail);
     }
 
     @PutMapping("")
-    public void AcceptFriendRequest(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
-        friendService.AcceptFriendRequest(senderAuth0Id, receiverAuth0Id);
+    public void acceptFriendRequest(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
+        friendService.acceptFriendRequest(senderAuth0Id, receiverAuth0Id);
     }
 
     @DeleteMapping("")
-    public void RemoveFriend(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
-        friendService.DeleteFriend(senderAuth0Id, receiverAuth0Id);
+    public void removeFriend(@RequestParam String senderAuth0Id, @RequestParam String receiverAuth0Id) {
+        friendService.deleteFriend(senderAuth0Id, receiverAuth0Id);
     }
 
 }

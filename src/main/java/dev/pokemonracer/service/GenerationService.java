@@ -18,28 +18,25 @@ public class GenerationService implements IGenerationService {
         this.generationRepository = generationRepository;
     }
 
-    public void InsertGeneration(Long Id, int upperLimit, int lowerLimit) {
-        Generation generation = new Generation(Id, upperLimit, lowerLimit);
-        if (generationRepository.findById(Id).isPresent()) return;
+    public void insertGeneration(Long id, int upperLimit, int lowerLimit) {
+        Generation generation = new Generation(id, upperLimit, lowerLimit);
+        if (generationRepository.findById(id).isPresent()) return;
         generationRepository.save(generation);
     }
 
-    public Generation GetGeneration(Long Id){
-        Optional<Generation> optionalGeneration = generationRepository.findById(Id);
+    public Generation getGeneration(Long id){
+        Optional<Generation> optionalGeneration = generationRepository.findById(id);
         if (optionalGeneration.isEmpty()) return null;
-        Generation generation = optionalGeneration.get();
-
-        return generation;
+        return optionalGeneration.get();
     }
 
-    public List<Generation> GetAllGenerations()
+    public List<Generation> getAllGenerations()
     {
-        List<Generation> generations = generationRepository.findAll();
-        return generations;
+        return generationRepository.findAll();
     }
 
-    public void UpdateGeneration(Long Id, int upperLimit, int lowerLimit) {
-        Generation generation = GetGeneration(Id);
+    public void updateGeneration(Long id, int upperLimit, int lowerLimit) {
+        Generation generation = getGeneration(id);
         if (generation == null) return;
 
         generation.setLowerLimit(lowerLimit);

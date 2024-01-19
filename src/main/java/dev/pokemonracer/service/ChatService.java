@@ -20,7 +20,7 @@ public class ChatService implements IChatService{
         this.userService = userService;
     }
 
-    public void SaveChat(ChatMessage chatMessage) {
+    public void saveChat(ChatMessage chatMessage) {
         try {
             chatMessage.setTimeSent(new java.util.Date());
             chatMessageRepository.save(chatMessage);
@@ -30,20 +30,19 @@ public class ChatService implements IChatService{
         
     }
 
-    public List<ChatMessage> GetChatsBySenderAndReciever(Long senderId, Long recieverId) {
+    public List<ChatMessage> getChatsBySenderAndReciever(Long senderId, Long recieverId) {
         try {
             if (senderId == null || recieverId == null ) throw new IllegalArgumentException("senderID or recieverID is null");
             List<ChatMessage> chats = chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(senderId), userService.getUserById(recieverId));
             chats.addAll(chatMessageRepository.findBysenderIdAndRecepientId(userService.getUserById(recieverId), userService.getUserById(senderId)));
-            List<ChatMessage> sortedChats = SortListByTimeSent(chats);
+            return sortListByTimeSent(chats);
     
-            return sortedChats;
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private List<ChatMessage> SortListByTimeSent(List<ChatMessage> list) {
+    private List<ChatMessage> sortListByTimeSent(List<ChatMessage> list) {
         Collections.sort(list);
         return list;
     }

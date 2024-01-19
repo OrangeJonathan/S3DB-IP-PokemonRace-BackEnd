@@ -15,21 +15,21 @@ public class User_Generation_Highscore {
     @Id
     @ManyToOne
     @JoinColumn(name="id")
-    private User user_Id;
+    private User userId;
 
     @Id
     @ManyToOne
     @JoinColumn(name="id")
-    private Generation generation_Id;
+    private Generation generationId;
 
     @Column(name="Highscore")
     private int highscore;
 
     User_Generation_Highscore() {}
 
-    User_Generation_Highscore(User user_Id, Generation generation_Id, int highscore) {
-        this.user_Id = user_Id;
-        this.generation_Id = generation_Id;
+    User_Generation_Highscore(User userId, Generation generationId, int highscore) {
+        this.userId = userId;
+        this.generationId = generationId;
         this.highscore = highscore;
     }
 }
